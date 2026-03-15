@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Sissa's Legend & Powers of 10</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --gold: #f9ca24;
+            --blue: #00d2ff;
+            --bg: #0a0e14;
+            --text: #c9d1d9;
+        }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.8; 
+            padding: 40px 20px; 
+            max-width: 900px; 
+            margin: auto; 
+        }
+        h1, h2, h3 { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 40px; }
+        .formula-box { 
+            background: #1a202c; 
+            padding: 25px; 
+            border-radius: 12px; 
+            border-left: 5px solid var(--gold); 
+            margin: 25px 0; 
+            font-size: 1.1em; 
+            overflow-x: auto;
+            color: #fff;
+        }
+        .highlight-gold { color: var(--gold); font-weight: bold; }
+        .highlight-blue { color: var(--blue); font-weight: bold; }
+        .back-link { 
+            display: inline-block; 
+            margin-bottom: 30px; 
+            color: var(--gold); 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: 0.3s;
+        }
+        .back-link:hover { transform: translateX(-5px); }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 12px; }
+
+        /* Collaboration Section */
+        .collaboration-invite {
+            margin-top: 50px;
+            padding: 30px;
+            border: 2px solid var(--blue);
+            border-radius: 15px;
+            background: rgba(0, 210, 255, 0.05);
+            text-align: center;
+        }
+        .collaboration-invite h2 {
+            color: var(--blue);
+            border: none;
+            margin-top: 0;
+        }
+        .btn-collab {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: var(--blue);
+            color: #000;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-collab:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+        }
+
+        footer { 
+            margin-top: 60px; 
+            padding-top: 20px; 
+            border-top: 1px solid #333; 
+            font-size: 0.85em; 
+            opacity: 0.6; 
+            text-align: center; 
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Back to Simulation</a>
+    
+    <h1>Scientific & Historical Documentation</h1>
+    
+    <p>This project explores the staggering reality of <strong>Exponential Growth</strong>. By connecting an ancient Indian legend with the modern physical scales of the universe, it demonstrates how repeated doubling (or halving) quickly leads to numbers that defy human intuition.</p>
+
+    <h2>1. The Legend of Sissa: Macro Scale</h2>
+    <p>The legend tells of the Brahmin Sissa Ben Dahir, who invented chess for King Shirham. As a reward, he made a request that seemed modest: 1 grain for the first square, 2 for the second, 4 for the third, and so on, doubling for each of the 64 squares.</p>
+    
+    <div class="formula-box">
+        <p>The number of grains on any specific square \( n \) is:</p>
+        \[ G_n = 2^{(n-1)} \]
+        <p>Therefore, the <strong>64th square</strong> alone contains:</p>
+        \[ G_{64} = 2^{63} = 9,223,372,036,854,775,808 \]
+        
+        <p>The <strong>total sum</strong> of grains across the entire board is a geometric series:</p>
+        \[ T = \sum_{i=0}^{63} 2^i = 2^{64} - 1 \]
+        \[ T = 18,446,744,073,709,551,615 \]
+    </div>
+
+    <p><strong>Physical Perspective:</strong> 18.4 quintillion grains of wheat would weigh approximately <span class="highlight-gold">1,200 billion tons</span>. This volume would cover the entire landmass of Earth in a layer about 1 cm thick, representing thousands of years of modern global production.</p>
+
+    <h2>2. Powers of 10: Micro Scale</h2>
+    <p>In "Micro Mode," the simulation applies the same exponential principle in reverse. Starting from a <span class="highlight-blue">5 mm</span> object (the size of a large grain of rice), we divide the dimension by 2 at each step, "zooming" into the structure of matter.</p>
+
+    <div class="formula-box">
+        <p>The dimension \( D \) at square \( n \) is calculated as:</p>
+        \[ D_n = 0.005 \times 2^{-(n-1)} \text{ meters} \]
+    </div>
+
+    <h3>Key Scientific Milestones:</h3>
+    <ul>
+        <li><strong>Square 10 (~10 microns):</strong> The scale of a <span class="highlight-blue">Human Cell</span> (Red Blood Cell).</li>
+        <li><strong>Square 18 (~20 nanometers):</strong> The size of a small <span class="highlight-blue">Virus</span> or a DNA strand width.</li>
+        <li><strong>Square 26 (~75 picometers):</strong> The approximate radius of a <span class="highlight-blue">Carbon Atom</span>.</li>
+        <li><strong>Square 40 (~5 femtometers):</strong> The scale of an <span class="highlight-blue">Atomic Nucleus</span> (Protons and Neutrons).</li>
+        <li><strong>Square 64:</strong> Approaching the limits of the Standard Model, far beyond the size of <span class="highlight-blue">Quarks</span>.</li>
+    </ul>
+
+    <h2>Technical Architecture</h2>
+    <ul>
+        <li><strong>BigInt Precision:</strong> Standard JavaScript numbers lose precision after \( 2^{53} - 1 \). This app uses <code>BigInt</code> to ensure the 64th square displays the exact integer.</li>
+        <li><strong>Responsive Grid:</strong> The UI uses <code>vmin</code> units to ensure the chessboard remains perfectly square and accessible on all mobile and desktop devices.</li>
+        <li><strong>Web Speech API:</strong> Audio feedback reinforces the learning experience through spoken milestones.</li>
+    </ul>
+
+    <section class="collaboration-invite">
+        <h2>Join the Educational Mission</h2>
+        <p>Are you a <strong>Professor</strong> or a <strong>Student</strong>? We need your help to make this tool accessible to everyone. We invite you to collaborate by translating the story and documentation into your native language.</p>
+        <p>Contributing is a great way to participate in an open-source STEM project and help students worldwide understand the beauty of mathematics.</p>
+        <a href="languages.html" class="btn-collab">Translate this Project</a>
+    </section>
+
+    <footer>
+        <strong>Sissa's Legend & Powers of 10</strong><br>
+        Developed by <a href="https://github.com/pivari" style="color:var(--gold); text-decoration:none;">pivari</a> | 2026<br>
+        An open-source interactive STEM resource.
+    </footer>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Sissa's Legend & Powers of 10 | Interactive Math Journey</title>
+    <meta name="description" content="Discover the power of exponential growth. From Sissa's legend to stars and atoms. Interactive educational PWA.">
+    <meta name="keywords" content="Sissa Legend, Powers of 10, Exponential Growth, Math Education, PWA, Interactive Science">
+    <meta name="author" content="Pivari.com">
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0a0e14">
+    <link rel="apple-touch-icon" href="logo192.png">
+    
+    <style>
+        :root { 
+            --gold: #f9ca24; 
+            --blue: #00d2ff; 
+            --dark: #0a0e14; 
+            --cell: 10vmin; 
+            --chess-light: #c9d1d9; 
+            --chess-dark: #484f58;  
+        }
+        
+        body { background: var(--dark); color: white; font-family: 'Constantia', serif; margin: 0; overflow-x: hidden; }
+        #bg-fx { position: fixed; top:0; left:0; width:100%; height:100%; z-index: -1; background: radial-gradient(circle at center, #1a202c 0%, #000 100%); }
+        
+        /* Language Selector UI */
+        #lang-selector { position: fixed; top: 15px; right: 15px; z-index: 200; display: flex; gap: 10px; }
+        .lang-btn { background: rgba(255,255,255,0.1); border: 1px solid #fff; color: #fff; padding: 6px 12px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.2s; }
+        .lang-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+        .lang-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
+
+        /* Story Overlay & Slides */
+        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .slide { max-width: 750px; text-align: center; display: none; width: 100%; flex-direction: column; align-items: center; }
+        .slide.visible { display: flex; animation: fadeIn 0.6s; }
+        .story-text { font-size: clamp(1.1rem, 2.5vh, 1.3rem); line-height: 1.7; margin-bottom: 25px; font-style: italic; }
+        
+        /* Action Button with Gold Effect */
+        .btn-action { padding: 15px 40px; background: #fff; color: #000; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: 0.3s; }
+        .btn-action:hover, .btn-action:active { background: var(--gold); transform: scale(1.05); }
+
+        /* Animation Containers */
+        .anim-container { 
+            width: 100%; height: 280px; position: relative; background: #000; border-radius: 15px; 
+            margin-bottom: 25px; border: 2px solid #333; overflow: hidden; display: flex; 
+            align-items: center; justify-content: center; perspective: 800px;
+        }
+
+        /* Earth Animation */
+        .earth-v2 { 
+            width: 70px; height: 70px; 
+            background: radial-gradient(circle, #2271b3, #000); 
+            border-radius: 50%; 
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.6); 
+            display: flex; align-items: center; justify-content: center; 
+            z-index: 2; 
+        }
+        .earth-v2::after { content: '🌍'; font-size: 50px; }
+
+        /* Rocket Animation */
+        .rocket-v2 { position: absolute; font-size: 45px; z-index: 10; opacity: 0; }
+        .rocket-animate { animation: deepSpaceLoop 7s infinite ease-in-out; }
+
+        @keyframes deepSpaceLoop { 
+            0% { transform: translateY(160px) scale(1.5); opacity: 0; }
+            10% { opacity: 1; }
+            45% { transform: translateY(-200px) scale(0.15) rotate(0deg); opacity: 1; }
+            50% { opacity: 0; }
+            60% { transform: translateY(-200px) rotate(180deg) scale(0.15); opacity: 0; }
+            65% { opacity: 1; }
+            95% { transform: translateY(20px) rotate(180deg) scale(1.1); opacity: 1; }
+            100% { transform: translateY(20px) rotate(180deg) scale(1.3); opacity: 0; }
+        }
+
+        /* Atomic Tunnel Animation */
+        .atom-core { width: 20px; height: 20px; background: #fff; border-radius: 50%; box-shadow: 0 0 25px var(--blue); }
+        .tunnel-ring { position: absolute; width: 20px; height: 20px; border: 2px solid var(--blue); border-radius: 50%; opacity: 0; animation: ringFlow 2.5s infinite linear; }
+        .r1 { animation-delay: 0s; } .r2 { animation-delay: 0.8s; } .r3 { animation-delay: 1.6s; }
+        @keyframes ringFlow { 0% { transform: scale(0.1); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(15); opacity: 0; } }
+
+        /* Chessboard Style */
+        #game-area { display: none; flex-direction: column; align-items: center; padding: 20px; z-index: 10; }
+        .board-container { 
+            display: grid; 
+            grid-template-columns: repeat(8, var(--cell)); 
+            grid-template-rows: repeat(8, var(--cell)); 
+            border: 3px solid #333; 
+            background: var(--chess-light); 
+        }
+        .cell { 
+            width: var(--cell); height: var(--cell); 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 2vmin; color: #111; border: 1px solid rgba(0,0,0,0.1); 
+            background: var(--chess-light); cursor: pointer; 
+        }
+        .cell.dark { background: var(--chess-dark); color: white; }
+        .cell.macro-active { background: #5d4037 !important; color: var(--gold); font-size: 6vmin; }
+        .cell.micro-active { background: #0d47a1 !important; color: var(--blue); font-size: 6vmin; }
+        
+        #display-box { width: 100%; max-width: calc(var(--cell) * 8); background: rgba(255,255,255,0.07); padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center; border: 2px solid #444; }
+        #counter-num { font-family: 'Courier New', monospace; font-size: 1.3rem; }
+        
+        #seo-footer { margin-top: 30px; font-size: 0.8rem; color: #555; text-align: center; }
+        #seo-footer a { color: #888; text-decoration: none; margin: 0 10px; border-bottom: 1px solid #333; transition: 0.2s; }
+        #seo-footer a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div id="bg-fx"></div>
+
+<div id="lang-selector">
+    <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')">EN</button>
+    <button id="btn-it" class="lang-btn" onclick="setLanguage('it')">IT</button>
+</div>
+
+<div id="overlay">
+    <div id="s1" class="slide visible">
+        <span style="font-size: 60px;">👳🏽‍♂️</span>
+        <p id="t1" class="story-text"></p>
+        <button id="b1" class="btn-action" onclick="speakNext('t1', 's1', 's2')"></button>
+    </div>
+    <div id="s2" class="slide">
+        <span style="font-size: 60px;">🌾</span>
+        <p id="t2" class="story-text"></p>
+        <button id="b2" class="btn-action" onclick="speakStart('t2', 'macro')"></button>
+    </div>
+    <div id="s3" class="slide">
+        <div class="anim-container">
+            <div class="earth-v2"></div>
+            <div id="rocket-obj" class="rocket-v2">🚀</div>
+        </div>
+        <p id="t3" class="story-text"></p>
+        <button id="b3" class="btn-action" onclick="speakNext('t3', 's3', 's4')"></button>
+    </div>
+    <div id="s4" class="slide">
+        <span style="font-size: 60px;">🏚️</span>
+        <p id="t4" class="story-text"></p>
+        <button id="b4" class="btn-action" onclick="speakStart('t4', 'micro')"></button>
+    </div>
+    <div id="s5" class="slide">
+        <div class="anim-container">
+            <div class="atom-core"></div>
+            <div class="tunnel-ring r1"></div><div class="tunnel-ring r2"></div><div class="tunnel-ring r3"></div>
+        </div>
+        <p id="t5" class="story-text"></p>
+        <button id="b5" class="btn-action" onclick="location.reload()"></button>
+    </div>
+</div>
+
+<div id="game-area">
+    <div id="display-box"><span id="counter-num"></span></div>
+    <h2 id="title" style="margin: 0 0 10px 0;"></h2>
+    <div class="board-container" id="board"></div>
+    <div id="seo-footer">
+        <p>Interactive STEM Resource - Pivari.com</p>
+        <a href="documentation.html">Documentation (IT/EN)</a> | 
+        <a href="https://github.com/pivari/sissa-legend-powers-of-10">GitHub Project</a> | 
+        <a href="languages.html">Translate this project</a>
+    </div>
+</div>
+
+<script src="languages.js"></script>
+<script>
+    let currentLang = 'en'; 
+    let current = 0; 
+    let mode = 'macro'; 
+    let grains = BigInt(1); 
+    const rocket = document.getElementById('rocket-obj');
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(`btn-${lang}`).classList.add('active');
+        updateUI();
+    }
+
+    function updateUI() {
+        const d = translations[currentLang];
+        for(let i=1; i<=5; i++) document.getElementById(`t${i}`).innerText = d.story[`s${i}`];
+        document.getElementById('b1').innerText = d.ui.btnNext;
+        document.getElementById('b2').innerText = d.ui.btnStart;
+        document.getElementById('b3').innerText = d.ui.btnPassano;
+        document.getElementById('b4').innerText = d.ui.btnAtomo;
+        document.getElementById('b5').innerText = d.ui.btnReload;
+    }
+
+    function speak(text, cb) {
+        speechSynthesis.cancel();
+        const m = new SpeechSynthesisUtterance(text);
+        m.lang = translations[currentLang].voiceCode;
+        if(cb) m.onend = cb;
+        speechSynthesis.speak(m);
+    }
+
+    function speakNext(tid, cur, nxt) {
+        speak(document.getElementById(tid).innerText, () => {
+            document.getElementById(cur).classList.remove('visible');
+            document.getElementById(nxt).classList.add('visible');
+            if(nxt === 's3') rocket.classList.add('rocket-animate');
+            else rocket.classList.remove('rocket-animate');
+        });
+    }
+
+    function speakStart(tid, m) {
+        speak(document.getElementById(tid).innerText, () => {
+            mode = m; current = 0; grains = BigInt(1);
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('game-area').style.display = 'flex';
+            const d = translations[currentLang];
+            document.getElementById('title').innerText = mode==='macro' ? d.ui.macroTitle : d.ui.microTitle;
+            document.getElementById('title').style.color = mode==='macro' ? 'var(--gold)' : 'var(--blue)';
+            document.getElementById('counter-num').style.color = mode==='macro' ? 'var(--gold)' : 'var(--blue)';
+            render();
+        });
+    }
+
+    function render() {
+        const b = document.getElementById('board');
+        b.innerHTML = '';
+        for(let i=0; i<64; i++) {
+            const c = document.createElement('div');
+            c.className = `cell ${(Math.floor(i/8)+i)%2===0 ? '' : 'dark'}`;
+            c.id = `c-${i}`; c.innerText = i+1;
+            b.appendChild(c);
+        }
+    }
+
+    document.getElementById('board').addEventListener('click', (e) => {
+        if(current < 64 && e.target.classList.contains('cell')) {
+            const cell = document.getElementById(`c-${current}`);
+            if(cell.classList.contains('active-cell')) return; 
+            cell.classList.add('active-cell');
+            cell.classList.add(mode==='macro'?'macro-active':'micro-active');
+            
+            const d = translations[currentLang];
+            if(mode === 'macro') {
+                if(current > 0) grains *= BigInt(2);
+                document.getElementById('counter-num').innerText = grains.toLocaleString(currentLang==='it'?'it-IT':'en-US') + " " + d.units.grains;
+                cell.innerText = "🌾";
+            } else {
+                const val = Math.pow(2, -current) * 0.005;
+                document.getElementById('counter-num').innerText = val.toFixed(20) + " " + d.units.meters;
+                cell.innerText = "⚛️";
+            }
+            
+            if(d.milestones[mode][current]) {
+                speechSynthesis.cancel();
+                const m = new SpeechSynthesisUtterance(d.milestones[mode][current]);
+                m.lang = d.voiceCode;
+                speechSynthesis.speak(m);
+            }
+            
+            current++;
+            if(current === 64) setTimeout(end, 1500);
+        }
+    });
+
+    function end() {
+        document.getElementById('game-area').style.display = 'none';
+        document.getElementById('overlay').style.display = 'flex';
+        const nxt = mode === 'macro' ? 's3' : 's5';
+        document.querySelectorAll('.slide').forEach(s => s.classList.remove('visible'));
+        document.getElementById(nxt).classList.add('visible');
+        if(nxt === 's3') {
+            rocket.classList.add('rocket-animate');
+            speak(document.getElementById('t3').innerText); 
+        } else {
+            speak(document.getElementById('t5').innerText); 
+        }
+    }
+    
+    updateUI();
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+               .then(reg => console.log('Service Worker registered!'))
+               .catch(err => console.log('Service Worker failed: ', err));
+        });
+    }
+</script>
+</body>
+</html>

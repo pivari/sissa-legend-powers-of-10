@@ -1,0 +1,21 @@
+{
+  "name": "Sissa's Legend & Powers of 10",
+  "short_name": "Sissa Math",
+  "description": "An interactive journey through exponential growth and the scales of the universe.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0a0e14",
+  "theme_color": "#f9ca24",
+  "icons": [
+    {
+      "src": "logo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

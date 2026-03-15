@@ -15,7 +15,7 @@ An interactive STEM experience exploring the staggering power of exponential gro
 - **Service Workers**: For PWA functionality and offline access.
 
 ## 📖 Documentation
-For technical details regarding the JSON syntax, milestones, and module logic, please refer to the [Internal Documentation](https://your-username.github.io/your-repo/documentation.html).
+For technical details regarding the JSON syntax, milestones, and module logic, please refer to the [Internal Documentation](https://pivari.github.io/sissa-legend-powers-of-10/documentation.html).
 
 ## 📄 License
 Distributed under the MIT License. Created by [Pivari.com](https://www.pivari.com).

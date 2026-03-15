@@ -28,10 +28,12 @@
         #bg-fx { position: fixed; top:0; left:0; width:100%; height:100%; z-index: -1; background: radial-gradient(circle at center, #1a202c 0%, #000 100%); }
         
         /* Language Selector UI */
-        #lang-selector { position: fixed; top: 15px; right: 15px; z-index: 200; display: flex; gap: 10px; }
-        .lang-btn { background: rgba(255,255,255,0.1); border: 1px solid #fff; color: #fff; padding: 6px 12px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.2s; }
+        #lang-selector { position: fixed; top: 15px; right: 15px; z-index: 200; display: flex; gap: 8px; align-items: center; }
+        .lang-btn { background: rgba(255,255,255,0.1); border: 1px solid #fff; color: #fff; padding: 6px 12px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.2s; text-decoration: none; font-size: 0.9rem; }
         .lang-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
         .lang-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
+        .doc-btn { border-color: var(--blue); color: var(--blue); }
+        .doc-btn:hover { background: var(--blue); color: #000; border-color: var(--blue); }
 
         /* Story Overlay & Slides */
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
@@ -115,6 +117,7 @@
 <div id="bg-fx"></div>
 
 <div id="lang-selector">
+    <a href="documentation.html" class="lang-btn doc-btn">DOC</a>
     <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')">EN</button>
     <button id="btn-it" class="lang-btn" onclick="setLanguage('it')">IT</button>
 </div>
@@ -159,7 +162,7 @@
     <div class="board-container" id="board"></div>
     <div id="seo-footer">
         <p>Interactive STEM Resource - Pivari.com</p>
-        <a href="documentation.html">Documentation (IT/EN)</a> | 
+        <a href="documentation.html">Documentation</a> | 
         <a href="https://github.com/pivari/sissa-legend-powers-of-10">GitHub Project</a> | 
         <a href="languages.html">Translate this project</a>
     </div>
@@ -167,6 +170,7 @@
 
 <script src="languages.js"></script>
 <script>
+    /* Navigation Logic */
     let currentLang = 'en'; 
     let current = 0; 
     let mode = 'macro'; 
@@ -176,7 +180,9 @@
     function setLanguage(lang) {
         currentLang = lang;
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(`btn-${lang}`).classList.add('active');
+        if(document.getElementById(`btn-${lang}`)) {
+            document.getElementById(`btn-${lang}`).classList.add('active');
+        }
         updateUI();
     }
 
@@ -202,20 +208,33 @@
         speak(document.getElementById(tid).innerText, () => {
             document.getElementById(cur).classList.remove('visible');
             document.getElementById(nxt).classList.add('visible');
-            if(nxt === 's3') rocket.classList.add('rocket-animate');
-            else rocket.classList.remove('rocket-animate');
+            if(nxt === 's3') {
+                rocket.classList.remove('rocket-animate');
+                void rocket.offsetWidth; 
+                rocket.classList.add('rocket-animate');
+            } else {
+                rocket.classList.remove('rocket-animate');
+            }
         });
     }
 
     function speakStart(tid, m) {
         speak(document.getElementById(tid).innerText, () => {
-            mode = m; current = 0; grains = BigInt(1);
+            /* FIXED: Reset grains and current index for new mode */
+            mode = m; 
+            current = 0; 
+            grains = BigInt(1); 
+            
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('game-area').style.display = 'flex';
             const d = translations[currentLang];
             document.getElementById('title').innerText = mode==='macro' ? d.ui.macroTitle : d.ui.microTitle;
             document.getElementById('title').style.color = mode==='macro' ? 'var(--gold)' : 'var(--blue)';
             document.getElementById('counter-num').style.color = mode==='macro' ? 'var(--gold)' : 'var(--blue)';
+            
+            /* Initial display value */
+            document.getElementById('counter-num').innerText = mode==='macro' ? "0 " + d.units.grains : "0.005 " + d.units.meters;
+            
             render();
         });
     }
@@ -268,9 +287,12 @@
         document.querySelectorAll('.slide').forEach(s => s.classList.remove('visible'));
         document.getElementById(nxt).classList.add('visible');
         if(nxt === 's3') {
+            rocket.classList.remove('rocket-animate');
+            void rocket.offsetWidth;
             rocket.classList.add('rocket-animate');
-            speak(document.getElementById('t3').innerText); 
+            // MODIFICA: Rimosso speak(...) automatico qui. Attende click su b3.
         } else {
+            /* Speak ending only on the very last slide */
             speak(document.getElementById('t5').innerText); 
         }
     }

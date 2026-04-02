@@ -27,13 +27,16 @@
         body { background: var(--dark); color: white; font-family: 'Constantia', serif; margin: 0; overflow-x: hidden; }
         #bg-fx { position: fixed; top:0; left:0; width:100%; height:100%; z-index: -1; background: radial-gradient(circle at center, #1a202c 0%, #000 100%); }
         
-        /* Language Selector UI */
+        /* Language & Voice Selector UI */
         #lang-selector { position: fixed; top: 15px; right: 15px; z-index: 200; display: flex; gap: 8px; align-items: center; }
         .lang-btn { background: rgba(255,255,255,0.1); border: 1px solid #fff; color: #fff; padding: 6px 12px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.2s; text-decoration: none; font-size: 0.9rem; }
         .lang-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
         .lang-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
         .doc-btn { border-color: var(--blue); color: var(--blue); }
         .doc-btn:hover { background: var(--blue); color: #000; border-color: var(--blue); }
+        
+        /* Voice Dropdown style */
+        #voice-select { background: #111; color: #fff; border: 1px solid #555; max-width: 120px; outline: none; }
 
         /* Story Overlay & Slides */
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
@@ -41,29 +44,17 @@
         .slide.visible { display: flex; animation: fadeIn 0.6s; }
         .story-text { font-size: clamp(1.1rem, 2.5vh, 1.3rem); line-height: 1.7; margin-bottom: 25px; font-style: italic; }
         
-        /* Action Button with Gold Effect */
         .btn-action { padding: 15px 40px; background: #fff; color: #000; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: 0.3s; }
         .btn-action:hover, .btn-action:active { background: var(--gold); transform: scale(1.05); }
 
-        /* Animation Containers */
         .anim-container { 
             width: 100%; height: 280px; position: relative; background: #000; border-radius: 15px; 
             margin-bottom: 25px; border: 2px solid #333; overflow: hidden; display: flex; 
             align-items: center; justify-content: center; perspective: 800px;
         }
 
-        /* Earth Animation */
-        .earth-v2 { 
-            width: 70px; height: 70px; 
-            background: radial-gradient(circle, #2271b3, #000); 
-            border-radius: 50%; 
-            box-shadow: 0 0 30px rgba(0, 210, 255, 0.6); 
-            display: flex; align-items: center; justify-content: center; 
-            z-index: 2; 
-        }
+        .earth-v2 { width: 70px; height: 70px; background: radial-gradient(circle, #2271b3, #000); border-radius: 50%; box-shadow: 0 0 30px rgba(0, 210, 255, 0.6); display: flex; align-items: center; justify-content: center; z-index: 2; }
         .earth-v2::after { content: '🌍'; font-size: 50px; }
-
-        /* Rocket Animation */
         .rocket-v2 { position: absolute; font-size: 45px; z-index: 10; opacity: 0; }
         .rocket-animate { animation: deepSpaceLoop 7s infinite ease-in-out; }
 
@@ -78,27 +69,14 @@
             100% { transform: translateY(20px) rotate(180deg) scale(1.3); opacity: 0; }
         }
 
-        /* Atomic Tunnel Animation */
         .atom-core { width: 20px; height: 20px; background: #fff; border-radius: 50%; box-shadow: 0 0 25px var(--blue); }
         .tunnel-ring { position: absolute; width: 20px; height: 20px; border: 2px solid var(--blue); border-radius: 50%; opacity: 0; animation: ringFlow 2.5s infinite linear; }
         .r1 { animation-delay: 0s; } .r2 { animation-delay: 0.8s; } .r3 { animation-delay: 1.6s; }
         @keyframes ringFlow { 0% { transform: scale(0.1); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(15); opacity: 0; } }
 
-        /* Chessboard Style */
         #game-area { display: none; flex-direction: column; align-items: center; padding: 20px; z-index: 10; }
-        .board-container { 
-            display: grid; 
-            grid-template-columns: repeat(8, var(--cell)); 
-            grid-template-rows: repeat(8, var(--cell)); 
-            border: 3px solid #333; 
-            background: var(--chess-light); 
-        }
-        .cell { 
-            width: var(--cell); height: var(--cell); 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 2vmin; color: #111; border: 1px solid rgba(0,0,0,0.1); 
-            background: var(--chess-light); cursor: pointer; 
-        }
+        .board-container { display: grid; grid-template-columns: repeat(8, var(--cell)); grid-template-rows: repeat(8, var(--cell)); border: 3px solid #333; background: var(--chess-light); }
+        .cell { width: var(--cell); height: var(--cell); display: flex; align-items: center; justify-content: center; font-size: 2vmin; color: #111; border: 1px solid rgba(0,0,0,0.1); background: var(--chess-light); cursor: pointer; }
         .cell.dark { background: var(--chess-dark); color: white; }
         .cell.macro-active { background: #5d4037 !important; color: var(--gold); font-size: 6vmin; }
         .cell.micro-active { background: #0d47a1 !important; color: var(--blue); font-size: 6vmin; }
@@ -118,6 +96,7 @@
 
 <div id="lang-selector">
     <a href="documentation.html" class="lang-btn doc-btn">DOC</a>
+    <select id="voice-select" class="lang-btn"></select>
     <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')">EN</button>
     <button id="btn-it" class="lang-btn" onclick="setLanguage('it')">IT</button>
 </div>
@@ -170,20 +149,41 @@
 
 <script src="languages.js"></script>
 <script>
-    /* Navigation Logic */
     let currentLang = 'en'; 
     let current = 0; 
     let mode = 'macro'; 
     let grains = BigInt(1); 
     const rocket = document.getElementById('rocket-obj');
+    
+    // Voice Selection Logic
+    let voices = [];
+    const voiceSelect = document.getElementById('voice-select');
+
+    function populateVoiceList() {
+        voices = speechSynthesis.getVoices();
+        const currentLangPrefix = translations[currentLang].voiceCode.split('-')[0];
+        voiceSelect.innerHTML = '';
+        
+        voices.forEach((voice) => {
+            if (voice.lang.startsWith(currentLangPrefix)) {
+                const option = document.createElement('option');
+                option.textContent = voice.name;
+                option.value = voice.name;
+                voiceSelect.appendChild(option);
+            }
+        });
+    }
+
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = populateVoiceList;
+    }
 
     function setLanguage(lang) {
         currentLang = lang;
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        if(document.getElementById(`btn-${lang}`)) {
-            document.getElementById(`btn-${lang}`).classList.add('active');
-        }
+        if(document.getElementById(`btn-${lang}`)) document.getElementById(`btn-${lang}`).classList.add('active');
         updateUI();
+        populateVoiceList();
     }
 
     function updateUI() {
@@ -199,7 +199,12 @@
     function speak(text, cb) {
         speechSynthesis.cancel();
         const m = new SpeechSynthesisUtterance(text);
-        m.lang = translations[currentLang].voiceCode;
+        
+        // Use selected voice if available
+        const selectedVoice = voices.find(v => v.name === voiceSelect.value);
+        if (selectedVoice) m.voice = selectedVoice;
+        else m.lang = translations[currentLang].voiceCode;
+
         if(cb) m.onend = cb;
         speechSynthesis.speak(m);
     }
@@ -220,21 +225,16 @@
 
     function speakStart(tid, m) {
         speak(document.getElementById(tid).innerText, () => {
-            /* FIXED: Reset grains and current index for new mode */
             mode = m; 
             current = 0; 
             grains = BigInt(1); 
-            
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('game-area').style.display = 'flex';
             const d = translations[currentLang];
             document.getElementById('title').innerText = mode==='macro' ? d.ui.macroTitle : d.ui.microTitle;
             document.getElementById('title').style.color = mode==='macro' ? 'var(--gold)' : 'var(--blue)';
             document.getElementById('counter-num').style.color = mode==='macro' ? 'var(--gold)' : 'var(--blue)';
-            
-            /* Initial display value */
             document.getElementById('counter-num').innerText = mode==='macro' ? "0 " + d.units.grains : "0.005 " + d.units.meters;
-            
             render();
         });
     }
@@ -269,10 +269,7 @@
             }
             
             if(d.milestones[mode][current]) {
-                speechSynthesis.cancel();
-                const m = new SpeechSynthesisUtterance(d.milestones[mode][current]);
-                m.lang = d.voiceCode;
-                speechSynthesis.speak(m);
+                speak(d.milestones[mode][current]);
             }
             
             current++;
@@ -290,20 +287,17 @@
             rocket.classList.remove('rocket-animate');
             void rocket.offsetWidth;
             rocket.classList.add('rocket-animate');
-            // MODIFICA: Rimosso speak(...) automatico qui. Attende click su b3.
         } else {
-            /* Speak ending only on the very last slide */
             speak(document.getElementById('t5').innerText); 
         }
     }
     
     updateUI();
-    // Register Service Worker for PWA
+    window.onload = populateVoiceList;
+
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js')
-               .then(reg => console.log('Service Worker registered!'))
-               .catch(err => console.log('Service Worker failed: ', err));
+            navigator.serviceWorker.register('sw.js');
         });
     }
 </script>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheda Didattica Sissa 5.0 | Pivari.com</title>
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 850px; margin: 0 auto; padding: 20px; background-color: #f0f2f5; }
+        .sheet { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-top: 8px solid #f9ca24; position: relative; }
+        
+        /* Bottone di ritorno */
+        .btn-return { 
+            display: inline-block; 
+            padding: 10px 20px; 
+            background: #2c3e50; 
+            color: white !important; 
+            text-decoration: none !important; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .btn-return:hover { background: #f9ca24; color: #000 !important; transform: translateX(-5px); }
+
+        h1 { color: #2c3e50; margin-bottom: 5px; }
+        h2 { color: #2980b9; margin-top: 30px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        h3 { color: #7f8c8d; font-weight: normal; margin-top: 5px; margin-bottom: 20px; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: #fff; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #f8f9fa; color: #333; }
+        
+        .collab-box { background: #fff3cd; padding: 20px; border-radius: 8px; border: 1px solid #ffeeba; margin-top: 30px; }
+        .footer { margin-top: 40px; text-align: center; font-size: 0.8rem; color: #7f8c8d; border-top: 1px solid #eee; padding-top: 20px; }
+        
+        a { color: #2980b9; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<a href="potenza.html" class="btn-return">← Torna al Progetto Sissa</a>
+
+<div class="sheet">
+    <h1>La Leggenda di Sissa</h1>
+    <h3>Esponenti, Grandi Numeri e l'Infinitamente Piccolo</h3>
+    <hr>
+
+    <h2>1. Il Problema Matematico</h2>
+    <p>La richiesta del saggio Sissa al Re Sheram non segue una progressione aritmetica, ma una <strong>progressione geometrica</strong> di ragione 2. In questa progressione, ogni termine è il doppio del precedente.</p>
+    <p>La formula per calcolare il numero di chicchi sulla singola casella \( n \) è:</p>
+    <p style="text-align: center; font-size: 1.2rem;">\( G_n = 2^{n-1} \)</p>
+    <p>Mentre la somma totale dei chicchi su una scacchiera di 64 caselle è data da:</p>
+    <p style="text-align: center; font-size: 1.2rem;">\( \sum_{i=0}^{63} 2^i = 2^{64} - 1 \)</p>
+
+    <h2>2. Tabella delle Potenze (Modalità Macro)</h2>
+    <table>
+        <tr>
+            <th>Casella (n)</th>
+            <th>Potenza</th>
+            <th>Chicchi (Valore)</th>
+            <th>Equivalenza Fisica / Curiosità</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>\( 2^0 \)</td>
+            <td>1</td>
+            <td>Un singolo chicco di grano.</td>
+        </tr>
+        <tr>
+            <td>32</td>
+            <td>\( 2^{31} \)</td>
+            <td>~2,1 Miliardi</td>
+            <td>La produzione di un intero campo agricolo.</td>
+        </tr>
+        <tr>
+            <td>64</td>
+            <td>\( 2^{63} \)</td>
+            <td>~9,2 Trilioni</td>
+            <td>Se ogni chicco fosse lungo 1 km, arriveremmo alla <strong>Stella Polare</strong> e torneremmo indietro due volte.</td>
+        </tr>
+    </table>
+
+    <h2>3. L'Infinitamente Piccolo (Modalità Micro)</h2>
+    <p>Nella seconda parte del viaggio, dividiamo il chicco di grano originario per scoprire l'essenza della materia.</p>
+    <table>
+        <tr>
+            <th>Casella (n)</th>
+            <th>Dimensione in Metri</th>
+            <th>Scala Biologica / Fisica</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>\( 5 \times 10^{-3} \) m</td>
+            <td>5 Millimetri (il chicco intero).</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>\( \approx 5 \times 10^{-6} \) m</td>
+            <td>Diametro di un globulo rosso.</td>
+        </tr>
+        <tr>
+            <td>27</td>
+            <td>\( \approx 10^{-10} \) m</td>
+            <td><strong>L'Atomo!</strong> Scala dei legami chimici.</td>
+        </tr>
+        <tr>
+            <td>43</td>
+            <td>\( \approx 10^{-15} \) m</td>
+            <td><strong>Il Nucleo!</strong> Diametro di un protone.</td>
+        </tr>
+    </table>
+
+    <h2>4. Approfondimento per la Classe</h2>
+    <p>Ricorda: bastano circa 10 raddoppi per aumentare di mille volte il valore iniziale (\( 2^{10} = 1024 \approx 10^3 \)). Questo spiega l'esplosione della crescita esponenziale.</p>
+
+    <div class="collab-box">
+        <strong>🌍 Progetto Multilingue</strong><br>
+        Questa risorsa è ora disponibile in più lingue per supportare le classi internazionali. 
+        Vuoi vedere questa scheda nella tua lingua o aiutarci a tradurla? 
+        <br><br>
+        <a href="lingue.html" style="color: #856404; font-weight: bold; text-decoration: underline;">👉 Clicca qui per scoprire come collaborare</a>
+    </div>
+
+    <div class="footer">
+        Documentazione Ufficiale Progetto Sissa 5.0 - © 2026 Pivari.com <br>
+        <em>Sviluppato per la divulgazione scientifica.</em>
+    </div>
+</div>
+
+</body>
+</html>

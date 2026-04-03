@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sissa-v1.1';
+const CACHE_NAME = 'sissa-v1.2';
 const assets = [
   './',
   './potenza.html',

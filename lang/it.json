@@ -1,0 +1,66 @@
+{
+    "voiceCode": "it-IT",
+    "ui": {
+        "btnNext": "Ascolta e Continua",
+        "btnStart": "Inizia la Sfida",
+        "btnAtomo": "Esplora l'Atomo",
+        "btnReload": "Ricomincia il Viaggio",
+        "btnPassano": "Passano i secoli...",
+        "btnShare": "Condividi Risultato",
+        "macroTitle": "Infinitamente Grande",
+        "microTitle": "Infinitamente Piccolo"
+    },
+    "icons": {
+        "macro": { 
+            "0": "🌾",
+            "9": "⚖️",
+            "19": "📦",
+            "29": "🚛",
+            "39": "🏔️",
+            "49": "🌍",
+            "59": "🌌" 
+        },
+        "micro": { 
+            "0": "🍚",
+            "3": "📍",
+            "12": "🔬",
+            "22": "🧬",
+            "32": "⚛️",
+            "42": "🌀" 
+        }
+    },
+    "units": { 
+        "grains": "chicchi", 
+        "meters": "metri" 
+    },
+    "milestones": {
+        "macro": {
+            "0": "Un chicco",
+            "9": "Mille chicchi - Una manciata",
+            "19": "Un milione - Un intero sacco di grano",
+            "29": "Un miliardo - Un intero camion rimorchio",
+            "39": "Un trilione - Una montagna alta chilometri",
+            "49": "Mille trilioni - Coprirebbe l'intera superficie terrestre",
+            "59": "Un quintilione - Più delle stelle nella galassia"
+        },
+        "micro": {
+            "0": "Mezzo centimetro",
+            "3": "Un millimetro - La punta di uno spillo",
+            "12": "Un micron - Grandezza di un batterio",
+            "22": "Nanometri - La doppia elica del DNA",
+            "32": "Picometri - Il raggio di un atomo",
+            "42": "Femtometri - Il nucleo dell'atomo"
+        }
+    },
+    "share": {
+        "macroText": "Ho scoperto l'universo di Sissa: 18 quintillioni di chicchi sulla scacchiera!",
+        "microText": "Ho diviso la materia fino all'atomo con la sfida di Sissa!"
+    },
+    "story": {
+        "s1": "Molti secoli fa, nell'antica India, sotto cieli trapunti di stelle e tra palazzi profumati di sandalo, viveva il potente Re Sheram. Nonostante le sue ricchezze immense, il suo cuore era spento dalla noia, finché il saggio Sissa non portò al palazzo un dono fatto di legno e puro ingegno: la scacchiera. Una battaglia di menti che accese gli occhi del Re. Egli promise a Sissa qualunque tesoro: oro, diamanti o titoli nobiliari.",
+        "s2": "Sissa rispose: 'Maestà, datemi un chicco di grano per la prima casella, due per la seconda, quattro per la terza, e così via, raddoppiando fino alla fine.' Il Re Sheram, quasi offeso da tanta umiltà, esclamò: 'Sia fatto! Avrai il tuo grano prima del tramonto.' Il Re rideva, ignaro che stava regalando l'universo intero.",
+        "s3": "I contabili gridarono: 'Maestà, abbiamo svuotato i granai! Per soddisfare Sissa non basta il raccolto del mondo per 400 anni! L'ultima casella contiene 2 elevato alla 63. Il totale supera i 18 quintillioni di chicchi. Se ogni chicco fosse un chilometro, raggiungeresti la Stella Polare, distante 430 anni luce, tornando indietro per due volte!'",
+        "s4": "Il regno è svanito nel calcolo. Il Re Sheram, ora un mendicante trafelato dalle vesti lacerate, ritrova Sissa. 'Sissa, il tuo esponente mi ha tolto tutto. Mi resta solo questo ultimo chicco.' Sissa sorride: 'Maestà, il viaggio verso l'infinito non ha una sola direzione. Dividiamo questo chicco. Casella dopo casella, taglieremo a metà ciò che resta per scoprire l'essenza stessa della materia.'",
+        "s5": "Sissa spiegò: 'Maestà, la mente umana si smarrisce tra troppi zeri. Per questo usiamo le Potenze di 10. Nell'Universo usiamo i Chilometri: 18 quintillioni diventano 1,8 per 10 alla diciannovesima. Nell'Atomo usiamo i Metri: quella scia infinita di zeri diventa 10 alla meno 10. L'esponente è l'unico linguaggio capace di misurare sia l'abbraccio dell'Universo che il respiro dell'Atomo.'"
+    }
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentation | Sissa's Legend & Powers of 10</title>
+    <title>Documentation | Sissa's Legend & Powers of 10 v1.3</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
@@ -33,6 +33,7 @@
             font-family: 'Courier New', Courier, monospace;
         }
         .highlight { color: var(--blue); font-weight: bold; }
+        .version-badge { background: var(--gold); color: #000; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8em; vertical-align: middle; }
         .btn-collab {
             display: inline-block;
             margin-top: 20px;
@@ -48,52 +49,48 @@
 </head>
 <body>
 
-    <h1>Technical & Scientific Documentation</h1>
-    <p>Welcome to the <strong>v1.2</strong> documentation. This project explores the mathematical concept of exponential growth and its application to the physical world, from galactic scales to subatomic particles.</p>
+    <h1>Technical & Scientific Documentation <span class="version-badge">v1.3</span></h1>
+    <p>Welcome to the documentation for <strong>Sissa's Legend & Powers of 10</strong>. This interactive resource explores exponential growth and its application to the physical world.</p>
 
-    <h2>1. The Mathematical Power of Doubling</h2>
-    <p>The core of the legend is the geometric progression: \( a_n = 2^{n-1} \). While the first few squares seem trivial, the growth becomes astronomical by the end of the board.</p>
+    <h2>1. Mathematical Foundations</h2>
+    <p>The journey follows a geometric progression: \( a_n = 2^{n-1} \). While the start seems trivial, the total number of grains by the 64th square is astronomical.</p>
     <div class="formula-box">
         Total Grains \( S_{64} = \sum_{i=0}^{63} 2^i = 2^{64} - 1 \)<br><br>
         Result: 18,446,744,073,709,551,615 grains.
     </div>
 
-    <h2>2. Physical Scale & Milestones (Macro)</h2>
-    <p>To make these numbers intuitive, we have mapped them to physical volumes based on average wheat grain sizes:</p>
+    <h2>2. Physical Scale Milestones</h2>
+    <p>To provide intuition, we map these numbers to real-world objects:</p>
     <ul>
-        <li><strong>1,000 Grains (Square 9):</strong> Approximately a <span class="highlight">handful</span>.</li>
-        <li><strong>1,000,000 Grains (Square 19):</strong> Occupies ~50 Liters. This represents <span class="highlight">one full agricultural sack</span> (approx. 45kg), a standard unit for cereal storage.</li>
-        <li><strong>1,000,000,000 Grains (Square 29):</strong> Occupies ~50,000 Liters, matching the capacity of a <span class="highlight">large commercial grain truck</span>.</li>
-        <li><strong>The Total:</strong> If spread 1cm thick, the wheat would cover the entire surface of the Earth.</li>
+        <li><strong>Square 9 (~1,000 Grains):</strong> A handful.</li>
+        <li><strong>Square 19 (~1,000,000 Grains):</strong> One full grain sack (~45kg).</li>
+        <li><strong>Square 29 (~1,000,000,000 Grains):</strong> A large commercial grain truck.</li>
+        <li><strong>Square 59 (~1 Quintillion):</strong> More than the stars in our galaxy.</li>
     </ul>
 
-    <h2>3. The Microscopic Journey</h2>
-    <p>In the "Micro" mode, we divide a 0.5 cm grain by 2 at every step. This demonstrates how few steps it takes to reach the subatomic level:</p>
-    <ul>
-        <li><strong>Step 12:</strong> We reach the <span class="highlight">Micron</span> scale (Bacteria).</li>
-        <li><strong>Step 22:</strong> We reach the <span class="highlight">Nanometer</span> scale (DNA strands).</li>
-        <li><strong>Step 32:</strong> We reach the <span class="highlight">Picometer</span> scale (Atomic radius).</li>
-    </ul>
+    <h2>3. New in Version 1.3</h2>
+    <h3>3.1 Internationalization (i18n) & Default Language</h3>
+    <p>The application now defaults to <strong>English</strong> to ensure global accessibility. Language preferences are stored locally via <code>localStorage</code>, allowing the app to remember the user's choice across sessions.</p>
+    
+    <h3>3.2 Enhanced PWA Metadata</h3>
+    <p>The <code>manifest.json</code> has been updated with full support for screenshots in both <code>narrow</code> (mobile) and <code>wide</code> (desktop) formats, improving the installation experience in modern browsers.</p>
 
-    <h2>4. Implementation Details (v1.2)</h2>
+    <h2>4. Technical Implementation</h2>
     <ul>
-        <li><strong>BigInt Precision:</strong> Standard JavaScript numbers lose precision after \( 2^{53} - 1 \). This app uses <code>BigInt</code> to ensure the 64th square displays the exact integer.</li>
-        <li><strong>Centralized Icon System:</strong> Visual milestones are managed via a <code>globalIcons</code> object to ensure that visual feedback (like the grain sack or the truck) remains consistent across all language versions.</li>
-        <li><strong>Web Share API:</strong> An integrated sharing system that triggers the native OS share sheet, allowing for a privacy-focused and seamless social experience.</li>
-        <li><strong>Responsive Grid:</strong> The UI uses <code>vmin</code> units to ensure the chessboard remains perfectly square and accessible on all mobile and desktop devices.</li>
+        <li><strong>BigInt Precision:</strong> Uses JavaScript <code>BigInt</code> to accurately handle the massive integers required for the 64th square without losing precision.</li>
+        <li><strong>Multilingual Engine:</strong> UI strings and story segments are dynamically loaded from external JSON files (<code>en.json</code>, <code>it.json</code>).</li>
+        <li><strong>Offline Capability:</strong> A Service Worker (<code>sw.js</code>) caches essential assets, including the new language files and icons, ensuring full offline functionality.</li>
     </ul>
 
     <section class="collaboration-invite">
         <h2>Join the Educational Mission</h2>
-        <p>Are you a <strong>Professor</strong> or a <strong>Student</strong>? We need your help to make this tool accessible to everyone. We invite you to collaborate by translating the story and documentation into your native language.</p>
-        <p>Contributing is a great way to participate in an open-source STEM project and help students worldwide understand the beauty of mathematics.</p>
+        <p>This is an open-source STEM project. We invite professors and students to contribute by adding new languages or scientific milestones.</p>
         <a href="https://github.com/pivari/sissa-legend-powers-of-10" class="btn-collab">Contribute on GitHub</a>
     </section>
 
     <footer>
         <strong>Sissa's Legend & Powers of 10</strong><br>
-        Developed by <a href="https://github.com/pivari" style="color:var(--gold); text-decoration:none;">pivari</a> | v1.2 | 2026<br>
-        An open-source interactive STEM resource.
+        Developed by <a href="https://github.com/pivari" style="color:var(--gold); text-decoration:none;">pivari</a> | v1.3 | 2026<br>
     </footer>
 </body>
 </html>

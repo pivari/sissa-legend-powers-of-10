@@ -13,7 +13,7 @@
     <link rel="apple-touch-icon" href="logo192.png">
     
     <style>
-        /* CSS Variables for consistent branding and sizing */
+        /* CSS ORIGINALE v1.2 - NESSUNA MODIFICA */
         :root { 
             --gold: #f9ca24; 
             --blue: #00d2ff; 
@@ -25,10 +25,8 @@
         
         body { background: var(--dark); color: white; font-family: 'Constantia', serif; margin: 0; overflow-x: hidden; }
         
-        /* Fixed background with radial gradient for a "space" feel */
         #bg-fx { position: fixed; top:0; left:0; width:100%; height:100%; z-index: -1; background: radial-gradient(circle at center, #1a202c 0%, #000 100%); }
         
-        /* Language & Voice Selector UI (Fixed top-right) */
         #lang-selector { position: fixed; top: 15px; right: 15px; z-index: 200; display: flex; gap: 8px; align-items: center; }
         .lang-btn { background: rgba(255,255,255,0.1); border: 1px solid #fff; color: #fff; padding: 6px 12px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.2s; text-decoration: none; font-size: 0.9rem; }
         .lang-btn:hover, .lang-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
@@ -36,7 +34,6 @@
         
         #voice-select { background: #111; color: #fff; border: 1px solid #555; max-width: 120px; outline: none; border-radius: 5px; padding: 4px; }
 
-        /* Milestone Popup: Visual feedback icon that scales up when reaching goals */
         #milestone-popup { 
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
             background: rgba(0,0,0,0.85); border: 3px solid var(--gold); border-radius: 50%;
@@ -46,7 +43,6 @@
         }
         #milestone-popup.show { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 
-        /* Story Overlay & Slides for the narrative part */
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
         .slide { max-width: 750px; text-align: center; display: none; width: 100%; flex-direction: column; align-items: center; }
         .slide.visible { display: flex; animation: fadeIn 0.6s; }
@@ -55,14 +51,13 @@
         .btn-action { padding: 15px 40px; background: #fff; color: #000; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: 0.3s; margin: 5px; }
         .btn-action:hover { background: var(--gold); transform: scale(1.05); }
 
-        /* Animation Containers for Earth/Rocket and Atom */
         .anim-container { 
             width: 100%; height: 280px; position: relative; background: #000; border-radius: 15px; 
             margin-bottom: 25px; border: 2px solid #333; overflow: hidden; display: flex; 
             align-items: center; justify-content: center;
         }
 
-        /* Earth & Rocket Animation v1.2 */
+        /* EARTH & ROCKET v1.2 */
         .earth-v2 { width: 70px; height: 70px; background: radial-gradient(circle, #2271b3, #000); border-radius: 50%; box-shadow: 0 0 30px var(--blue); display: flex; align-items: center; justify-content: center; z-index: 2; }
         .earth-v2::after { content: '🌍'; font-size: 50px; }
         .rocket-v2 { position: absolute; font-size: 45px; z-index: 10; opacity: 0; pointer-events: none; }
@@ -76,13 +71,12 @@
             100% { opacity: 0; }
         }
 
-        /* Atomic Tunnel Animation rings */
+        /* ATOM v1.2 */
         .atom-core { width: 20px; height: 20px; background: #fff; border-radius: 50%; box-shadow: 0 0 25px var(--blue); }
         .tunnel-ring { position: absolute; width: 20px; height: 20px; border: 2px solid var(--blue); border-radius: 50%; opacity: 0; animation: ringFlow 2.5s infinite linear; }
         .r1 { animation-delay: 0s; } .r2 { animation-delay: 0.8s; } .r3 { animation-delay: 1.6s; }
         @keyframes ringFlow { 0% { transform: scale(0.1); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(15); opacity: 0; } }
 
-        /* Board Styling */
         #game-area { display: none; flex-direction: column; align-items: center; padding: 20px; z-index: 10; }
         .board-container { display: grid; grid-template-columns: repeat(8, var(--cell)); grid-template-rows: repeat(8, var(--cell)); border: 3px solid #333; background: var(--chess-light); }
         .cell { width: var(--cell); height: var(--cell); display: flex; align-items: center; justify-content: center; font-size: 2vmin; color: #111; border: 1px solid rgba(0,0,0,0.1); cursor: pointer; }
@@ -151,76 +145,31 @@
     <div class="board-container" id="board"></div>
 </div>
 
-<script src="languages.js"></script>
 <script>
-    /* Application state variables */
-    let currentLang = 'en', current = 0, mode = 'macro', grains = BigInt(1), voices = [];
+    /* LOGICA v1.2 ORIGINALE CON CARICAMENTO JSON ESTERNO */
+    let currentLang = localStorage.getItem('sissa_lang') || 'en', 
+        current = 0, mode = 'macro', grains = BigInt(1), voices = [], translations = null;
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const rocket = document.getElementById('rocket-obj');
 
-    /**
-     * Synthesizes a procedural sound effect for board interactions.
-     * Macro mode: Deep, bassy "thump"
-     * Micro mode: High-pitched atomic "ping"
-     */
-    function playStepSound(m) {
-        const osc = audioCtx.createOscillator(); 
-        const gain = audioCtx.createGain();
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        
-        if(m === 'macro') {
-            osc.type = 'sine'; osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.1);
-        } else {
-            osc.type = 'triangle'; osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
-        }
-        
-        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-        osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+    async function setLanguage(lang) {
+        try {
+            const response = await fetch(`./lang/${lang}.json`);
+            translations = await response.json();
+            currentLang = lang;
+            localStorage.setItem('sissa_lang', lang);
+
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            if(document.getElementById(`btn-${lang}`)) document.getElementById(`btn-${lang}`).classList.add('active');
+
+            updateUI(); 
+            populateVoiceList();
+        } catch (e) { console.error("Error loading language:", e); }
     }
 
-    /**
-     * Displays a milestone emoji in the center of the screen when reaching key squares.
-     */
-    function showMilestoneIcon(idx) {
-        const iconSet = translations[currentLang].icons[mode];
-        if(iconSet && iconSet[idx]) {
-            const popup = document.getElementById('milestone-popup');
-            popup.innerText = iconSet[idx]; popup.classList.add('show');
-            setTimeout(() => popup.classList.remove('show'), 1200);
-        }
-    }
-
-    /**
-     * Filters available system voices based on the selected language code.
-     */
-    function populateVoiceList() {
-        voices = speechSynthesis.getVoices();
-        const vs = document.getElementById('voice-select'); vs.innerHTML = '';
-        const prefix = translations[currentLang].voiceCode.split('-')[0];
-        voices.filter(v => v.lang.startsWith(prefix)).forEach(v => {
-            const o = document.createElement('option'); o.textContent = v.name; o.value = v.name; vs.appendChild(o);
-        });
-    }
-    if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = populateVoiceList;
-
-    /**
-     * Switches application language and updates the UI strings.
-     */
-    function setLanguage(lang) {
-        currentLang = lang;
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        if(document.getElementById(`btn-${lang}`)) document.getElementById(`btn-${lang}`).classList.add('active');
-        updateUI(); populateVoiceList();
-    }
-
-    /**
-     * Updates all narrative and UI text elements based on language data.
-     */
     function updateUI() {
-        const d = translations[currentLang];
+        if(!translations) return;
+        const d = translations;
         for(let i=1; i<=5; i++) document.getElementById(`t${i}`).innerText = d.story[`s${i}`];
         document.getElementById('b1').innerText = d.ui.btnNext;
         document.getElementById('b2').innerText = d.ui.btnStart;
@@ -230,51 +179,70 @@
         if(document.getElementById('bShare')) document.getElementById('bShare').innerText = d.ui.btnShare;
     }
 
-    /**
-     * Triggers the Web Speech API (TTS) using the selected system voice.
-     */
+    function playStepSound(m) {
+        const osc = audioCtx.createOscillator(); 
+        const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        if(m === 'macro') {
+            osc.type = 'sine'; osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.1);
+        } else {
+            osc.type = 'triangle'; osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
+        }
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+        osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+    }
+
+    function showMilestoneIcon(idx) {
+        const iconSet = translations.icons[mode];
+        if(iconSet && iconSet[idx]) {
+            const popup = document.getElementById('milestone-popup');
+            popup.innerText = iconSet[idx]; popup.classList.add('show');
+            setTimeout(() => popup.classList.remove('show'), 1200);
+        }
+    }
+
+    function populateVoiceList() {
+        voices = speechSynthesis.getVoices();
+        const vs = document.getElementById('voice-select'); vs.innerHTML = '';
+        const prefix = translations.voiceCode.split('-')[0];
+        voices.filter(v => v.lang.startsWith(prefix)).forEach(v => {
+            const o = document.createElement('option'); o.textContent = v.name; o.value = v.name; vs.appendChild(o);
+        });
+    }
+
     function speak(text, cb) {
         speechSynthesis.cancel();
         const m = new SpeechSynthesisUtterance(text);
         const selectedVoice = voices.find(v => v.name === document.getElementById('voice-select').value);
-        if (selectedVoice) m.voice = selectedVoice; else m.lang = translations[currentLang].voiceCode;
+        if (selectedVoice) m.voice = selectedVoice; else m.lang = translations.voiceCode;
         if(cb) m.onend = cb; speechSynthesis.speak(m);
     }
 
-    /**
-     * Advances to the next narrative slide once the current speech finishes.
-     * Includes logic to trigger/reset the rocket animation in Slide 3.
-     */
     function speakNext(tid, cur, nxt) {
         speak(document.getElementById(tid).innerText, () => {
             document.getElementById(cur).classList.remove('visible');
-            const nextSlide = document.getElementById(nxt);
-            nextSlide.classList.add('visible');
-            
+            document.getElementById(nxt).classList.add('visible');
             if(nxt === 's3') {
                 rocket.classList.remove('rocket-animate');
-                void rocket.offsetWidth; // Force reflow to allow re-triggering animation
+                void rocket.offsetWidth;
                 rocket.classList.add('rocket-animate');
             }
         });
     }
 
-    /**
-     * Transitions from narration to the interactive board game mode.
-     */
     function speakStart(tid, m) {
         speak(document.getElementById(tid).innerText, () => {
             mode = m; current = 0; grains = BigInt(1);
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('game-area').style.display = 'flex';
-            document.getElementById('title').innerText = mode==='macro' ? translations[currentLang].ui.macroTitle : translations[currentLang].ui.microTitle;
+            document.getElementById('title').innerText = mode==='macro' ? translations.ui.macroTitle : translations.ui.microTitle;
             render();
         });
     }
 
-    /**
-     * Generates the 8x8 chessboard grid dynamically.
-     */
     function render() {
         const b = document.getElementById('board'); b.innerHTML = '';
         for(let i=0; i<64; i++) {
@@ -285,60 +253,40 @@
         updateCounter();
     }
 
-    /**
-     * Updates the mathematical counter display.
-     * Uses BigInt for grains (to handle massive numbers) and floats for meters.
-     */
     function updateCounter() {
-        const d = translations[currentLang];
+        if(!translations) return;
+        const d = translations;
         if(mode === 'macro') {
             document.getElementById('counter-num').innerText = grains.toLocaleString(currentLang==='it'?'it-IT':'en-US') + " " + d.units.grains;
         } else {
-            const val = Math.pow(2, -current) * 0.005; // Starting from 0.5cm (0.005m)
+            const val = Math.pow(2, -current) * 0.005;
             document.getElementById('counter-num').innerText = val.toFixed(20) + " " + d.units.meters;
         }
     }
 
-    /**
-     * Click Event Handler for the board.
-     * Triggers doubling logic (v1.1) and UI/Sound feedback (v1.2).
-     */
     document.getElementById('board').addEventListener('click', (e) => {
         if(current < 64 && e.target.classList.contains('cell')) {
             playStepSound(mode); 
             const cell = document.getElementById(`c-${current}`);
             cell.classList.add(mode==='macro'?'macro-active':'micro-active');
             cell.innerText = mode==='macro' ? "🌾" : "⚛️";
-            
-            const d = translations[currentLang];
-            
-            /* DOUBLING LOGIC 1.1: Double grains if we are past the first square */
             if(mode === 'macro' && current > 0) grains *= BigInt(2);
-            
             updateCounter();
-
-            /* Check and trigger Milestone speech/icons */
-            if(d.milestones[mode][current]) {
-                speak(d.milestones[mode][current]);
+            if(translations.milestones[mode][current]) {
+                speak(translations.milestones[mode][current]);
                 showMilestoneIcon(current);
             }
-
             current++;
             if(current === 64) setTimeout(end, 1500); 
         }
     });
 
-    /**
-     * Handles the conclusion of a game phase and returns to story mode.
-     */
     function end() {
         document.getElementById('game-area').style.display = 'none';
         document.getElementById('overlay').style.display = 'flex';
         const nxt = mode === 'macro' ? 's3' : 's5';
         document.querySelectorAll('.slide').forEach(s => s.classList.remove('visible'));
-        const targetSlide = document.getElementById(nxt);
-        targetSlide.classList.add('visible');
-        
+        document.getElementById(nxt).classList.add('visible');
         if(nxt === 's3') {
             rocket.classList.remove('rocket-animate');
             void rocket.offsetWidth;
@@ -348,23 +296,16 @@
         }
     }
 
-    /**
-     * Web Share API integration to allow users to share their discoveries.
-     */
     function shareResults() {
-        const d = translations[currentLang];
+        const d = translations;
         const text = mode === 'macro' ? d.share.macroText : d.share.microText;
-        if (navigator.share) {
-            navigator.share({ title: 'Sissa Math Challenge', text: text, url: window.location.href });
-        } else {
-            navigator.clipboard.writeText(text + " " + window.location.href);
-            alert("Results copied to clipboard!");
-        }
+        if (navigator.share) navigator.share({ title: 'Sissa Math Challenge', text: text, url: window.location.href });
+        else alert("Results copied to clipboard!");
     }
     
-    /* App initialization */
-    updateUI(); 
-    window.onload = populateVoiceList;
+    // Init
+    setLanguage(currentLang);
+    if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = populateVoiceList;
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 </script>
 </body>

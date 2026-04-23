@@ -1,0 +1,66 @@
+{
+    "voiceCode": "en-US",
+    "ui": {
+        "btnNext": "Listen and Continue",
+        "btnStart": "Start the Challenge",
+        "btnAtomo": "Explore the Atom",
+        "btnReload": "Restart the Journey",
+        "btnPassano": "Centuries pass...",
+        "btnShare": "Share Result",
+        "macroTitle": "Infinitely Large",
+        "microTitle": "Infinitely Small"
+    },
+    "icons": {
+        "macro": { 
+            "0": "🌾",
+            "9": "⚖️",
+            "19": "📦",
+            "29": "🚛",
+            "39": "🏔️",
+            "49": "🌍",
+            "59": "🌌" 
+        },
+        "micro": { 
+            "0": "🍚",
+            "3": "📍",
+            "12": "🔬",
+            "22": "🧬",
+            "32": "⚛️",
+            "42": "🌀" 
+        }
+    },
+    "units": { 
+        "grains": "grains", 
+        "meters": "meters" 
+    },
+    "milestones": {
+        "macro": {
+            "0": "One grain",
+            "9": "One thousand grains - A handful",
+            "19": "One million - A full grain sack",
+            "29": "One billion - A full commercial truck",
+            "39": "One trillion - A mountain kilometers high",
+            "49": "One thousand trillion - Covering the entire Earth",
+            "59": "One quintillion - More than the stars in the galaxy"
+        },
+        "micro": {
+            "0": "Half a centimeter",
+            "3": "One millimeter - The tip of a pin",
+            "12": "One micron - Size of a bacterium",
+            "22": "Nanometers - The DNA double helix",
+            "32": "Picometers - The radius of an atom",
+            "42": "Femtometers - The atom's nucleus"
+        }
+    },
+    "share": {
+        "macroText": "I discovered Sissa's universe: 18 quintillion grains on the board!",
+        "microText": "I divided matter down to the atom with Sissa's challenge!"
+    },
+    "story": {
+        "s1": "Many centuries ago, in ancient India, under star-studded skies and amidst sandalwood-scented palaces, lived the powerful King Sheram. Despite his immense wealth, his heart was dulled by boredom, until the wise Sissa brought a gift of wood and pure ingenuity to the palace: the chessboard. A battle of minds that ignited the King's eyes. He promised Sissa any treasure: gold, diamonds, or noble titles.",
+        "s2": "Sissa replied: 'Majesty, give me one grain of wheat for the first square, two for the second, four for the third, and so on, doubling until the end.' King Sheram, almost offended by such humility, exclaimed: 'It shall be done! You shall have your grain before sunset.' The King laughed, unaware that he was giving away the entire universe.",
+        "s3": "The accountants cried out: 'Majesty, we have emptied the granaries! To satisfy Sissa, the world's harvest for 400 years is not enough! The last square contains 2 to the 63rd power. The total exceeds 18 quintillion grains. If each grain were a kilometer, you would reach the North Star, 430 light-years away, and return twice!'",
+        "s4": "The kingdom vanished into the calculation. King Sheram, now a breathless beggar in tattered robes, finds Sissa again. 'Sissa, your exponent has taken everything from me. I am left with only this last grain.' Sissa smiles: 'Majesty, the journey to infinity does not have only one direction. Let us divide this grain. Square by square, we will cut what remains in half to discover the very essence of matter.'",
+        "s5": "Sissa explained: 'Majesty, the human mind gets lost among too many zeros. This is why we use Powers of 10. In the Universe, we use Kilometers: 18 quintillion becomes 1.8 times 10 to the 19th power. In the Atom, we use Meters: that infinite trail of zeros becomes 10 to the minus 10. The exponent is the only language capable of measuring both the embrace of the Universe and the breath of the Atom.'"
+    }
+}

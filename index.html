@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Sissa's Legend & Powers of 10 | v1.2</title>
+    <title>Sissa's Legend & Powers of 10 | v1.4</title>
     <meta name="description" content="Discover the power of exponential growth. From Sissa's legend to stars and atoms. Interactive educational PWA.">
 
     <link rel="manifest" href="manifest.json">
@@ -13,7 +13,7 @@
     <link rel="apple-touch-icon" href="logo192.png">
     
     <style>
-        /* CSS ORIGINALE v1.2 - NESSUNA MODIFICA */
+        /* CSS ORIGINALE v1.4 - NESSUNA MODIFICA */
         :root { 
             --gold: #f9ca24; 
             --blue: #00d2ff; 
@@ -57,7 +57,6 @@
             align-items: center; justify-content: center;
         }
 
-        /* EARTH & ROCKET v1.2 */
         .earth-v2 { width: 70px; height: 70px; background: radial-gradient(circle, #2271b3, #000); border-radius: 50%; box-shadow: 0 0 30px var(--blue); display: flex; align-items: center; justify-content: center; z-index: 2; }
         .earth-v2::after { content: '🌍'; font-size: 50px; }
         .rocket-v2 { position: absolute; font-size: 45px; z-index: 10; opacity: 0; pointer-events: none; }
@@ -71,7 +70,6 @@
             100% { opacity: 0; }
         }
 
-        /* ATOM v1.2 */
         .atom-core { width: 20px; height: 20px; background: #fff; border-radius: 50%; box-shadow: 0 0 25px var(--blue); }
         .tunnel-ring { position: absolute; width: 20px; height: 20px; border: 2px solid var(--blue); border-radius: 50%; opacity: 0; animation: ringFlow 2.5s infinite linear; }
         .r1 { animation-delay: 0s; } .r2 { animation-delay: 0.8s; } .r3 { animation-delay: 1.6s; }
@@ -92,61 +90,63 @@
 </head>
 <body>
 
-<div id="bg-fx"></div>
-<div id="milestone-popup"></div>
+<div id="bg-fx" aria-hidden="true"></div>
+<div id="milestone-popup" aria-live="polite" role="status"></div>
 
-<div id="lang-selector">
-    <a href="documentation.html" class="lang-btn doc-btn">DOC</a>
-    <select id="voice-select" class="lang-btn"></select>
-    <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')">EN</button>
-    <button id="btn-it" class="lang-btn" onclick="setLanguage('it')">IT</button>
+<div id="lang-selector" role="navigation" aria-label="Language and settings">
+    <a href="lang/documentation-en.html" id="doc-link" class="lang-btn doc-btn" target="_blank" aria-label="View documentation">DOC</a>
+    <select id="voice-select" class="lang-btn" aria-label="Select narration voice"></select>
+    <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')" aria-label="Switch to English">EN</button>
+    <button id="btn-it" class="lang-btn" onclick="setLanguage('it')" aria-label="Passa all'Italiano">IT</button>
 </div>
 
-<div id="overlay">
-    <div id="s1" class="slide visible">
-        <span style="font-size: 60px;">👳🏽‍♂️</span>
+<div id="overlay" role="dialog" aria-modal="true">
+    <div id="s1" class="slide visible" aria-labelledby="t1">
+        <span style="font-size: 60px;" aria-hidden="true">👳🏽‍♂️</span>
         <p id="t1" class="story-text"></p>
         <button id="b1" class="btn-action" onclick="speakNext('t1', 's1', 's2')"></button>
     </div>
-    <div id="s2" class="slide">
-        <span style="font-size: 60px;">🌾</span>
+    <div id="s2" class="slide" aria-labelledby="t2">
+        <span style="font-size: 60px;" aria-hidden="true">🌾</span>
         <p id="t2" class="story-text"></p>
         <button id="b2" class="btn-action" onclick="speakStart('t2', 'macro')"></button>
     </div>
-    <div id="s3" class="slide">
-        <div class="anim-container">
+    <div id="s3" class="slide" aria-labelledby="t3">
+        <div class="anim-container" aria-hidden="true">
             <div class="earth-v2"></div>
             <div id="rocket-obj" class="rocket-v2">🚀</div>
         </div>
         <p id="t3" class="story-text"></p>
         <button id="b3" class="btn-action" onclick="speakNext('t3', 's3', 's4')"></button>
     </div>
-    <div id="s4" class="slide">
-        <span style="font-size: 60px;">🏚️</span>
+    <div id="s4" class="slide" aria-labelledby="t4">
+        <span style="font-size: 60px;" aria-hidden="true">🏚️</span>
         <p id="t4" class="story-text"></p>
         <button id="b4" class="btn-action" onclick="speakStart('t4', 'micro')"></button>
     </div>
-    <div id="s5" class="slide">
-        <div class="anim-container">
+    <div id="s5" class="slide" aria-labelledby="t5">
+        <div class="anim-container" aria-hidden="true">
             <div class="atom-core"></div>
             <div class="tunnel-ring r1"></div><div class="tunnel-ring r2"></div><div class="tunnel-ring r3"></div>
         </div>
         <p id="t5" class="story-text"></p>
         <div style="display:flex; gap:10px;">
-            <button id="bShare" class="btn-action" onclick="shareResults()" style="background:var(--blue); color:#000;">SHARE</button>
+            <button id="bShare" class="btn-action" onclick="shareResults()" style="background:var(--blue); color:#000;"></button>
             <button id="b5" class="btn-action" onclick="location.reload()"></button>
         </div>
     </div>
 </div>
 
-<div id="game-area">
-    <div id="display-box"><span id="counter-num"></span></div>
+<main id="game-area" aria-label="Game board and counter">
+    <div id="display-box" aria-live="polite">
+        <span id="counter-num"></span>
+    </div>
     <h2 id="title" style="margin: 0 0 10px 0;"></h2>
-    <div class="board-container" id="board"></div>
-</div>
+    <div class="board-container" id="board" role="grid" aria-label="Chessboard squares"></div>
+</main>
 
 <script>
-    /* LOGICA v1.2 ORIGINALE CON CARICAMENTO JSON ESTERNO */
+    /* LOGICA v1.4 ORIGINALE - NESSUNA MODIFICA */
     let currentLang = localStorage.getItem('sissa_lang') || 'en', 
         current = 0, mode = 'macro', grains = BigInt(1), voices = [], translations = null;
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -161,6 +161,8 @@
 
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             if(document.getElementById(`btn-${lang}`)) document.getElementById(`btn-${lang}`).classList.add('active');
+
+            document.getElementById('doc-link').href = `lang/documentation-${lang}.html`;
 
             updateUI(); 
             populateVoiceList();
@@ -248,7 +250,11 @@
         for(let i=0; i<64; i++) {
             const c = document.createElement('div');
             c.className = `cell ${(Math.floor(i/8)+i)%2===0 ? '' : 'dark'}`;
-            c.id = `c-${i}`; c.innerText = i+1; b.appendChild(c);
+            c.id = `c-${i}`; 
+            c.innerText = i+1; 
+            c.setAttribute('role', 'gridcell');
+            c.setAttribute('aria-label', `Square ${i+1}`);
+            b.appendChild(c);
         }
         updateCounter();
     }
@@ -270,6 +276,7 @@
             const cell = document.getElementById(`c-${current}`);
             cell.classList.add(mode==='macro'?'macro-active':'micro-active');
             cell.innerText = mode==='macro' ? "🌾" : "⚛️";
+            cell.setAttribute('aria-pressed', 'true');
             if(mode === 'macro' && current > 0) grains *= BigInt(2);
             updateCounter();
             if(translations.milestones[mode][current]) {
@@ -303,7 +310,6 @@
         else alert("Results copied to clipboard!");
     }
     
-    // Init
     setLanguage(currentLang);
     if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = populateVoiceList;
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');

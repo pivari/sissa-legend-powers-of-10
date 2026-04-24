@@ -1,22 +1,24 @@
 /**
  * SISSA'S LEGEND & POWERS OF 10 - Service Worker
- * Version: 1.3
- * Changes: Added support for dynamic language JSON files and updated cache management.
+ * Version: 1.4
+ * Changes: Added support for localized documentation files in the /lang/ folder.
  */
 
-const CACHE_NAME = 'sissa-v1.3';
+const CACHE_NAME = 'sissa-v1.4';
 
 // Assets to be cached for offline usage
 const assets = [
   './',
   './index.html',
-  './documentation.html',
   './manifest.json',
   './logo192.png',
   './logo512.png',
-  // Nuovi file di lingua dinamici (v1.3)
+  // File di lingua JSON (v1.3)
   './lang/it.json',
-  './lang/en.json'
+  './lang/en.json',
+  // Documentazione localizzata (v1.4)
+  './lang/documentation-it.html',
+  './lang/documentation-en.html'
 ];
 
 /**
@@ -25,14 +27,14 @@ const assets = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('Sissa PWA: Caching version 1.3 assets');
+      console.log('Sissa PWA: Caching version 1.4 assets');
       return cache.addAll(assets);
     })
   );
 });
 
 /**
- * Activate Event: Cleans up old caches from previous versions (v1.2 and below).
+ * Activate Event: Cleans up old caches from previous versions.
  */
 self.addEventListener('activate', (event) => {
   event.waitUntil(
@@ -49,11 +51,11 @@ self.addEventListener('activate', (event) => {
 });
 
 /**
- * Fetch Event: Network-first falling back to cache strategy for language files,
+ * Fetch Event: Network-first falling back to cache strategy for language/docs files,
  * and Cache-first for static UI assets.
  */
 self.addEventListener('fetch', (event) => {
-  // Strategia differenziata: per i file JSON cerchiamo sempre l'aggiornamento in rete
+  // Strategia differenziata: per i file nella cartella /lang/ cerchiamo sempre l'aggiornamento in rete
   if (event.request.url.includes('/lang/')) {
     event.respondWith(
       fetch(event.request).catch(() => caches.match(event.request))

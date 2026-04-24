@@ -2,33 +2,37 @@
 
 An interactive STEM experience exploring the staggering power of exponential growth, from the ancient Indian Legend of Sissa to the vast scales of the universe and the heart of the atom.
 
-## 🚀 Features (v1.3 Update)
-- **Internationalization (i18n)**: Now defaults to **English** for global accessibility, with full support for Italian.
-- **Persistent Preferences**: Remembers your language and voice selection across sessions using `localStorage`.
-- **Interactive Storytelling**: Experience the "Wheat and Chessboard" problem firsthand through an immersive digital board.
-- **Dual Scale Journey**: 
-    - **Macro**: Travel from a single grain to quantities exceeding the stars in our galaxy.
-    - **Micro**: Zoom from a grain of rice down to the atomic nucleus (femtomolar scale).
-- **Visual Milestones**: Centralized Icon System representing physical volumes (e.g., a 45kg sack for 1 million grains, a commercial truck for 1 billion).
-- **Enhanced PWA**: Updated metadata and screenshot support for a professional installation experience on Android and iOS.
-- **Customizable Narration**: Web Speech API with dynamic voice filtering based on the active language.
+## 🚀 Features (v1.4 Update)
+- **Accessibility (ARIA)**: Full support for screen readers with semantic roles, `aria-live` regions for real-time counter updates, and improved keyboard navigation.
+- **Dynamic Documentation**: The 'DOC' button now automatically detects the active UI language and opens the corresponding documentation (English or Italian).
+- **Internationalization (i18n)**: Full support for English and Italian with persistent preferences via `localStorage`.
+- **Interactive Storytelling**: A dual-path journey (Macro & Micro) through the "Wheat and Chessboard" problem.
 
-## 🛠️ Built With
-- **HTML5 / CSS3**: Responsive `vmin` design and custom animations (Deep Space Rocket, Atomic Tunnel).
-- **Vanilla JavaScript**: High-precision logic using `BigInt` to accurately display the $2^{64}-1$ grains of the final square.
-- **Web Share API**: Native OS integration for privacy-focused sharing of results.
-- **Service Workers**: Advanced caching strategy for full offline functionality and fast loading.
+## 🧮 Mathematical Foundation
+The project visualizes the geometric progression:
+\[ G_n = 2^{n-1} \]
+And the total sum of grains:
+\[ S = 2^{64} - 1 \]
+
+On the **Micro Scale**, we explore subatomic dimensions using negative powers:
+\[ L_n = 0.005 \times 2^{-n} \]
+
+## 🛠️ Technical Details
+- **High-Precision Logic**: Uses JavaScript `BigInt` to handle integers up to $18,446,744,073,709,551,615$ without precision loss.
+- **Web Speech API**: Integrated narration engine with dynamic voice filtering based on the selected language.
+- **PWA Ready**: Offline functionality via Service Worker and full manifest support for mobile installation.
+- **Responsive Design**: Built with `vmin` units for a seamless experience across all screen sizes.
+
+## 🌍 Community & Contribution
+This is an open-source educational mission. We believe that science should be accessible to everyone, regardless of their language. 
+
+**We need your help!** If you would like to contribute by translating the technical and educational documentation into other languages (French, Spanish, German, etc.), please visit our GitHub repository:
+- **Contribute on GitHub:** [https://github.com/pivari/sissa-legend-powers-of-10](https://github.com/pivari/sissa-legend-powers-of-10)
 
 ## 📖 Documentation
-For technical details regarding mathematical formulas (geometric progression), scientific milestones, and implementation logic, please refer to the:
-- **[Technical & Scientific Documentation v1.3](https://pivari.github.io/sissa-legend-powers-of-10/documentation.html)**
-
-## 🤝 Contributing
-We are looking for **Professors**, **Students**, and **Science Communicators**! 
-Help us reach more students by:
-1. Adding new languages to the external translation files.
-2. Improving scientific milestones in the documentation.
-3. Reporting issues or suggesting new "powers of 10" to explore.
+Detailed educational and technical goals are available in the `/lang` folder:
+- [Technical & Scientific Documentation (EN)](lang/documentation-en.html)
+- [Documentazione Tecnica e Scientifica (IT)](lang/documentation-it.html)
 
 ## 📄 License
-Distributed under the MIT License. Created by [Pivari.com](https://www.pivari.com).
+Distributed under the MIT License. Created by [pivari.com](https://www.pivari.com).

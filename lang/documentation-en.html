@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Sissa's Legend & Powers of 10 v1.4</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --gold: #f9ca24;
+            --blue: #00d2ff;
+            --bg: #0a0e14;
+            --text: #c9d1d9;
+        }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.8; 
+            padding: 40px 20px; 
+            max-width: 900px; 
+            margin: auto; 
+        }
+        h1, h2, h3 { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 40px; }
+        .formula-box { 
+            background: #1a202c; 
+            padding: 25px; 
+            border-radius: 10px; 
+            border-left: 5px solid var(--gold); 
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .update-highlight {
+            border: 1px solid var(--blue);
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(0, 210, 255, 0.05);
+            margin-bottom: 20px;
+        }
+        a { color: var(--gold); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Sissa's Legend & Powers of 10 - Educational Journey</h1>
+    
+    <div class="update-highlight">
+        <h3>v1.4 Update: Accessibility & Smart Linking</h3>
+        <p>This version introduces full <strong>ARIA (Accessible Rich Internet Applications)</strong> support for screen readers and a dynamic documentation system that automatically matches the user's selected language.</p>
+    </div>
+
+    <h2>1. The Mathematical Legend</h2>
+    <p>The core of the experience is based on the geometric progression of doubling grains of wheat on a 64-square chessboard.</p>
+    
+    <div class="formula-box">
+        \[ G_n = 2^{n-1} \]
+        <p>Where \( G_n \) is the number of grains on square \( n \). The total sum \( S \) is:</p>
+        \[ S = \sum_{i=0}^{63} 2^i = 2^{64} - 1 \]
+    </div>
+
+    <h2>2. Powers of 10: Macro & Micro</h2>
+    <h3>2.1 Macro Scale (The Universe)</h3>
+    <p>We use the wheat as a proxy for mass and volume. By the 64th square, the number of grains reaches:</p>
+    <div class="formula-box">
+        \[ 18,446,744,073,709,551,615 \]
+    </div>
+
+    <h3>2.2 Micro Scale (The Atom)</h3>
+    <p>Starting from a grain of rice (approx. 5mm), we apply negative powers of 10 to explore subatomic structures:</p>
+    <div class="formula-box">
+        \[ L_n = 0.005 \times 2^{-n} \]
+    </div>
+
+    <h2>3. Technical Implementation</h2>
+    <ul>
+        <li><strong>BigInt Precision:</strong> Handles massive integers without losing precision.</li>
+        <li><strong>ARIA Compliance:</strong> Uses <code>aria-live</code> for real-time counter updates.</li>
+        <li><strong>Multilingual Engine:</strong> UI strings loaded from <code>en.json</code> and <code>it.json</code>.</li>
+    </ul>
+
+    <section style="margin-top: 40px; padding: 20px; border-top: 1px solid #333; text-align: center;">
+        <p>For more educational projects and collaboration, visit:</p>
+        <a href="https://www.pivari.com" style="font-size: 1.2em; font-weight: bold;">www.pivari.com</a>
+    </section>
+
+    <footer>
+        <br>
+        <strong>Sissa's Legend & Powers of 10</strong><br>
+        v1.4 | 2026 | Created by <a href="https://www.pivari.com">pivari.com</a>
+    </footer>
+</body>
+</html>

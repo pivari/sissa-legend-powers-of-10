@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentazione | La Leggenda di Sissa v1.4</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        :root {
+            --gold: #f9ca24;
+            --blue: #00d2ff;
+            --bg: #0a0e14;
+            --text: #c9d1d9;
+        }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.8; 
+            padding: 40px 20px; 
+            max-width: 900px; 
+            margin: auto; 
+        }
+        h1, h2, h3 { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 40px; }
+        .formula-box { 
+            background: #1a202c; 
+            padding: 25px; 
+            border-radius: 10px; 
+            border-left: 5px solid var(--gold); 
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .update-highlight {
+            border: 1px solid var(--blue);
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(0, 210, 255, 0.05);
+            margin-bottom: 20px;
+        }
+        a { color: var(--gold); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>La Leggenda di Sissa - Percorso Educativo</h1>
+    
+    <div class="update-highlight">
+        <h3>Aggiornamento v1.4: Accessibilità e Link Intelligenti</h3>
+        <p>Questa versione introduce il supporto completo a <strong>ARIA (Accessible Rich Internet Applications)</strong> per screen reader e un sistema di documentazione dinamica che riconosce la lingua selezionata.</p>
+    </div>
+
+    <h2>1. La Leggenda Matematica</h2>
+    <p>Il cuore dell'esperienza si basa sulla progressione geometrica del raddoppio dei chicchi su una scacchiera di 64 caselle.</p>
+    
+    <div class="formula-box">
+        \[ G_n = 2^{n-1} \]
+        <p>Dove \( G_n \) è il numero di chicchi sulla casella \( n \). La somma totale \( S \) è:</p>
+        \[ S = \sum_{i=0}^{63} 2^i = 2^{64} - 1 \]
+    </div>
+
+    <h2>2. Potenze di 10: Macro e Micro</h2>
+    <h3>2.1 Scala Macro (L'Universo)</h3>
+    <p>Usiamo il grano come unità di misura per massa e volume. Alla 64esima casella, il numero di chicchi raggiunge:</p>
+    <div class="formula-box">
+        \[ 18.446.744.073.709.551.615 \]
+    </div>
+
+    <h3>2.2 Scala Micro (L'Atomo)</h3>
+    <p>Partendo da un chicco di riso (circa 5mm), applichiamo potenze negative di 10 per esplorare le strutture subatomiche:</p>
+    <div class="formula-box">
+        \[ L_n = 0,005 \times 2^{-n} \]
+    </div>
+
+    <h2>3. Implementazione Tecnica</h2>
+    <ul>
+        <li><strong>Precisione BigInt:</strong> Gestisce gli interi massicci senza perdita di precisione.</li>
+        <li><strong>Conformità ARIA:</strong> Utilizza <code>aria-live</code> per aggiornamenti in tempo reale del contatore.</li>
+        <li><strong>Motore Multilingua:</strong> Testi caricati dinamicamente da <code>en.json</code> e <code>it.json</code>.</li>
+    </ul>
+
+    <section style="margin-top: 40px; padding: 20px; border-top: 1px solid #333; text-align: center;">
+        <p>Per altri progetti educativi e collaborazioni, visita:</p>
+        <a href="https://www.pivari.com" style="font-size: 1.2em; font-weight: bold;">www.pivari.com</a>
+    </section>
+
+    <footer>
+        <br>
+        <strong>La Leggenda di Sissa & Potenze di 10</strong><br>
+        v1.4 | 2026 | Creato da <a href="https://www.pivari.com">pivari.com</a>
+    </footer>
+</body>
+</html>

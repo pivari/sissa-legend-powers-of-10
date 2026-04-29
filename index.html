@@ -11,6 +11,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#0a0e14">
     <link rel="apple-touch-icon" href="logo192.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <style>
         /* CSS ORIGINALE v1.4 - NESSUNA MODIFICA */
@@ -314,5 +315,10 @@
     if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = populateVoiceList;
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 </script>
+
+<footer style="position: fixed; bottom: 5px; width: 100%; text-align: center; font-size: 0.7rem; color: #555; z-index: 50; pointer-events: none;">
+    Released under MIT License | © 2026 pivari.com
+</footer>
+    
 </body>
 </html>

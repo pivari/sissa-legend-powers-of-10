@@ -1,38 +1,35 @@
-# Sissa's Legend & Powers of 10
+# Sissa's Legend & Powers of 10 | v1.5
 
-An interactive STEM experience exploring the staggering power of exponential growth, from the ancient Indian Legend of Sissa to the vast scales of the universe and the heart of the atom.
+An interactive Open Educational Resource (OER) and STEM tool exploring exponential growth and cosmic scales, from the ancient Legend of Sissa to subatomic particles.
 
-## 🚀 Features (v1.4 Update)
-- **Accessibility (ARIA)**: Full support for screen readers with semantic roles, `aria-live` regions for real-time counter updates, and improved keyboard navigation.
-- **Dynamic Documentation**: The 'DOC' button now automatically detects the active UI language and opens the corresponding documentation (English or Italian).
-- **Internationalization (i18n)**: Full support for English and Italian with persistent preferences via `localStorage`.
-- **Interactive Storytelling**: A dual-path journey (Macro & Micro) through the "Wheat and Chessboard" problem.
+## 🚀 Version 1.5 - Key Updates
+- **Multilingual Engine (ZH)**: Integrated full support for Simplified Chinese (UI, narrative, and documentation).
+- **Mathematical Accuracy**: Added LaTeX support via MathJax for professional rendering of exponential formulas:
+  - Macro: $S = \sum_{i=0}^{63} 2^i = 2^{64} - 1$
+  - Micro: $L_n = 0.005 \times 2^{-n}$
+- **Advanced Accessibility (ARIA)**: Full compliance with ARIA roles (`grid`, `gridcell`, `aria-live`, `aria-modal`) for screen reader optimization and inclusive learning.
+- **HarmonyOS Next Support**: Optimized for Huawei's ArkWeb engine with standalone display mode and high-res assets.
+- **Expanded Asset Pipeline**: Added `logo512.png` for modern splash screens and PWA validation.
+- **OER & MIT License**: Embedded licensing metadata directly in the interface and documentation.
 
-## 🧮 Mathematical Foundation
-The project visualizes the geometric progression:
-\[ G_n = 2^{n-1} \]
-And the total sum of grains:
-\[ S = 2^{64} - 1 \]
+## 🛠 Technical Features
+- **Monolithic Core**: All logic, styles, and UI contained in a single high-performance `index.html` (320+ lines).
+- **Narrative TTS Engine**: Dynamic voice selection and synchronization for storytelling in EN, IT, and ZH.
+- **BigInt Precision**: Native JavaScript `BigInt` used to accurately compute the 64th square ($1.84 \times 10^{19}$ grains).
+- **Offline First**: Service Worker (v1.5) caches all localized JSON files, icons, and HTML documentation.
+- **Scientific Documentation**: Deep-dive HTML files for each language explaining the physics and math of the "Powers of 10".
 
-On the **Micro Scale**, we explore subatomic dimensions using negative powers:
-\[ L_n = 0.005 \times 2^{-n} \]
+## 📂 Project Structure
+- `index.html`: The core engine (Logic, Styles, UI, MathJax).
+- `sw.js`: Service Worker for offline PWA lifecycle.
+- `manifest.json`: Configuration for mobile installation and HarmonyOS support.
+- `lang/`:
+  - `en.json`, `it.json`, `zh.json`: Localization data.
+  - `documentation-en.html`, `documentation-it.html`, `documentation-zh.html`: Educational manuals.
+- `logo192.png`, `logo512.png`, `favicon.ico`: High-resolution branding.
 
-## 🛠️ Technical Details
-- **High-Precision Logic**: Uses JavaScript `BigInt` to handle integers up to $18,446,744,073,709,551,615$ without precision loss.
-- **Web Speech API**: Integrated narration engine with dynamic voice filtering based on the selected language.
-- **PWA Ready**: Offline functionality via Service Worker and full manifest support for mobile installation.
-- **Responsive Design**: Built with `vmin` units for a seamless experience across all screen sizes.
+## 📜 License & Credits
+Released under the **MIT License**. 
+This is an **Open Educational Resource (OER)** created for schools, universities, and science enthusiasts.
 
-## 🌍 Community & Contribution
-This is an open-source educational mission. We believe that science should be accessible to everyone, regardless of their language. 
-
-**We need your help!** If you would like to contribute by translating the technical and educational documentation into other languages (French, Spanish, German, etc.), please visit our GitHub repository:
-- **Contribute on GitHub:** [https://github.com/pivari/sissa-legend-powers-of-10](https://github.com/pivari/sissa-legend-powers-of-10)
-
-## 📖 Documentation
-Detailed educational and technical goals are available in the `/lang` folder:
-- [Technical & Scientific Documentation (EN)](lang/documentation-en.html)
-- [Documentazione Tecnica e Scientifica (IT)](lang/documentation-it.html)
-
-## 📄 License
-Distributed under the MIT License. Created by [pivari.com](https://www.pivari.com).
+© 2026 [pivari.com](https://www.pivari.com)

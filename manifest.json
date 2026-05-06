@@ -1,15 +1,13 @@
 {
+  "short_name": "Sissa1.5",
   "name": "Sissa's Legend & Powers of 10",
-  "short_name": "Sissa v1.4",
-  "description": "An interactive journey through the infinitely large and small, from Sissa's legend to the heart of the atom.",
-  "start_url": "index.html",
-  "display": "standalone",
-  "background_color": "#0a0e14",
-  "theme_color": "#f9ca24",
-  "orientation": "any",
-  "categories": ["education", "games", "science"],
-  "lang": "en",
+  "description": "An interactive OER journey through exponential growth and the scales of the universe.",
   "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
     {
       "src": "logo192.png",
       "type": "image/png",
@@ -21,6 +19,20 @@
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#0a0e14",
+  "background_color": "#0a0e14",
+  "orientation": "any",
+  "lang": "en",
+  "categories": ["education", "science", "games"],
+  "shortcuts": [
+    {
+      "name": "Macro Mode",
+      "url": "./index.html?mode=macro",
+      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
     }
   ]
 }

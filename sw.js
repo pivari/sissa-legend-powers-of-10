@@ -1,71 +1,44 @@
-/**
- * SISSA'S LEGEND & POWERS OF 10 - Service Worker
- * Version: 1.4
- * Changes: Added support for localized documentation files in the /lang/ folder.
- */
-
-const CACHE_NAME = 'sissa-v1.4';
-
-// Assets to be cached for offline usage
-const assets = [
+const CACHE_NAME = 'sissa-legend-v1.5';
+const ASSETS = [
   './',
   './index.html',
   './manifest.json',
   './logo192.png',
-  './logo512.png',
-  // File di lingua JSON (v1.3)
-  './lang/it.json',
+  './logo512.png', // Added for high-res displays and splash screens
+  './favicon.ico',
   './lang/en.json',
-  // Documentazione localizzata (v1.4)
+  './lang/it.json',
+  './lang/zh.json',
+  './lang/documentation-en.html',
   './lang/documentation-it.html',
-  './lang/documentation-en.html'
+  './lang/documentation-zh.html'
 ];
 
-/**
- * Install Event: Open cache and store all defined assets.
- */
+// Install Event: caching all application shell resources and localization files
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('Sissa PWA: Caching version 1.4 assets');
-      return cache.addAll(assets);
+      return cache.addAll(ASSETS);
     })
   );
 });
 
-/**
- * Activate Event: Cleans up old caches from previous versions.
- */
+// Activate Event: cleaning up legacy caches from previous versions
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
-        keys.filter(key => key !== CACHE_NAME)
-            .map(key => {
-                console.log('Sissa PWA: Removing old cache', key);
-                return caches.delete(key);
-            })
+        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
       );
     })
   );
 });
 
-/**
- * Fetch Event: Network-first falling back to cache strategy for language/docs files,
- * and Cache-first for static UI assets.
- */
+// Fetch Event: standard Cache First strategy to ensure offline availability
 self.addEventListener('fetch', (event) => {
-  // Strategia differenziata: per i file nella cartella /lang/ cerchiamo sempre l'aggiornamento in rete
-  if (event.request.url.includes('/lang/')) {
-    event.respondWith(
-      fetch(event.request).catch(() => caches.match(event.request))
-    );
-  } else {
-    // Strategia standard per il resto degli asset statici
-    event.respondWith(
-      caches.match(event.request).then((response) => {
-        return response || fetch(event.request);
-      })
-    );
-  }
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      return cachedResponse || fetch(event.request);
+    })
+  );
 });

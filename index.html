@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sissa's Legend & Powers of 10 | v1.5 Complete</title>
     
-    <title>Sissa's Legend & Powers of 10 | v1.4</title>
-    <meta name="description" content="Discover the power of exponential growth. From Sissa's legend to stars and atoms. Interactive educational PWA.">
-
+    <meta name="description" content="OER STEM Resource: Discover exponential growth. MIT License.">
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#0a0e14">
-    <link rel="apple-touch-icon" href="logo192.png">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="logo192.png">
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <style>
-        /* CSS ORIGINALE v1.4 - NESSUNA MODIFICA */
+        /* FULL CSS ARCHITECTURE v1.5 */
         :root { 
             --gold: #f9ca24; 
             --blue: #00d2ff; 
@@ -28,65 +30,59 @@
         
         #bg-fx { position: fixed; top:0; left:0; width:100%; height:100%; z-index: -1; background: radial-gradient(circle at center, #1a202c 0%, #000 100%); }
         
+        /* Language & Voice Selector UI */
         #lang-selector { position: fixed; top: 15px; right: 15px; z-index: 200; display: flex; gap: 8px; align-items: center; }
         .lang-btn { background: rgba(255,255,255,0.1); border: 1px solid #fff; color: #fff; padding: 6px 12px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.2s; text-decoration: none; font-size: 0.9rem; }
         .lang-btn:hover, .lang-btn.active { background: var(--gold); color: #000; border-color: var(--gold); }
         .doc-btn { border-color: var(--blue); color: var(--blue); }
-        
         #voice-select { background: #111; color: #fff; border: 1px solid #555; max-width: 120px; outline: none; border-radius: 5px; padding: 4px; }
 
-        #milestone-popup { 
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
-            background: rgba(0,0,0,0.85); border: 3px solid var(--gold); border-radius: 50%;
-            width: 150px; height: 150px; display: flex; align-items: center; justify-content: center;
-            font-size: 80px; z-index: 150; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none; opacity: 0;
-        }
-        #milestone-popup.show { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        /* MIT & OER Box */
+        .license-toast { position: fixed; bottom: 20px; left: 20px; background: rgba(0,0,0,0.85); border: 1px solid var(--gold); padding: 12px; font-size: 0.75rem; border-radius: 8px; max-width: 260px; z-index: 1000; color: #ccc; line-height: 1.4; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
 
+        /* Overlays & Slides */
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
         .slide { max-width: 750px; text-align: center; display: none; width: 100%; flex-direction: column; align-items: center; }
-        .slide.visible { display: flex; animation: fadeIn 0.6s; }
-        .story-text { font-size: clamp(1.1rem, 2.5vh, 1.3rem); line-height: 1.7; margin-bottom: 25px; font-style: italic; }
-        
-        .btn-action { padding: 15px 40px; background: #fff; color: #000; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: 0.3s; margin: 5px; }
-        .btn-action:hover { background: var(--gold); transform: scale(1.05); }
+        .slide.visible { display: flex; animation: fadeIn 0.8s ease; }
+        .story-text { font-size: clamp(1.1rem, 2.5vh, 1.35rem); line-height: 1.8; margin-bottom: 25px; font-style: italic; color: #e0e0e0; }
+        .formula-display { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin: 20px 0; font-size: 1.3rem; border-left: 5px solid var(--gold); width: 80%; }
 
-        .anim-container { 
-            width: 100%; height: 280px; position: relative; background: #000; border-radius: 15px; 
-            margin-bottom: 25px; border: 2px solid #333; overflow: hidden; display: flex; 
-            align-items: center; justify-content: center;
-        }
+        /* Interaction Elements */
+        .btn-action { padding: 18px 45px; background: #fff; color: #000; border: none; border-radius: 50px; cursor: pointer; font-weight: 800; font-size: 1.1rem; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); margin: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-action:hover { background: var(--gold); transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 20px rgba(249, 202, 36, 0.3); }
 
-        .earth-v2 { width: 70px; height: 70px; background: radial-gradient(circle, #2271b3, #000); border-radius: 50%; box-shadow: 0 0 30px var(--blue); display: flex; align-items: center; justify-content: center; z-index: 2; }
-        .earth-v2::after { content: '🌍'; font-size: 50px; }
-        .rocket-v2 { position: absolute; font-size: 45px; z-index: 10; opacity: 0; pointer-events: none; }
-        .rocket-animate { animation: deepSpaceLoop 7s infinite ease-in-out; }
+        /* Animations & VFX */
+        .anim-container { width: 100%; height: 300px; position: relative; background: #000; border-radius: 20px; margin-bottom: 30px; border: 2px solid #333; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 50px rgba(0,0,0,0.9); }
+        .earth-v2 { width: 80px; height: 80px; background: radial-gradient(circle at 30% 30%, #2271b3, #000); border-radius: 50%; box-shadow: 0 0 40px var(--blue); position: relative; z-index: 2; }
+        .earth-v2::after { content: '🌍'; font-size: 55px; display: flex; justify-content: center; align-items: center; height: 100%; }
+        .rocket-v2 { position: absolute; font-size: 45px; z-index: 10; opacity: 0; pointer-events: none; filter: drop-shadow(0 0 10px var(--gold)); }
+        .rocket-animate { animation: deepSpaceLoop 8s infinite ease-in-out; }
+        @keyframes deepSpaceLoop { 0% { transform: translateY(200px) scale(2); opacity: 0; } 10% { opacity: 1; } 50% { transform: translateY(-250px) scale(0.1); opacity: 1; } 60% { opacity: 0; } 100% { opacity: 0; } }
 
-        @keyframes deepSpaceLoop { 
-            0% { transform: translateY(160px) scale(1.5); opacity: 0; }
-            10% { opacity: 1; }
-            45% { transform: translateY(-200px) scale(0.15); opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 0; }
-        }
+        /* Quantum Tunnel Rings */
+        .tunnel-ring { position: absolute; width: 10px; height: 10px; border: 2px solid var(--blue); border-radius: 50%; opacity: 0; animation: ringFlow 3s infinite linear; }
+        .r1 { animation-delay: 0s; } .r2 { animation-delay: 1s; } .r3 { animation-delay: 2s; }
+        @keyframes ringFlow { 0% { transform: scale(0.5); opacity: 0; } 50% { opacity: 0.8; } 100% { transform: scale(25); opacity: 0; } }
 
-        .atom-core { width: 20px; height: 20px; background: #fff; border-radius: 50%; box-shadow: 0 0 25px var(--blue); }
-        .tunnel-ring { position: absolute; width: 20px; height: 20px; border: 2px solid var(--blue); border-radius: 50%; opacity: 0; animation: ringFlow 2.5s infinite linear; }
-        .r1 { animation-delay: 0s; } .r2 { animation-delay: 0.8s; } .r3 { animation-delay: 1.6s; }
-        @keyframes ringFlow { 0% { transform: scale(0.1); opacity: 0; } 50% { opacity: 1; } 100% { transform: scale(15); opacity: 0; } }
-
+        /* Game Board Architecture */
         #game-area { display: none; flex-direction: column; align-items: center; padding: 20px; z-index: 10; }
-        .board-container { display: grid; grid-template-columns: repeat(8, var(--cell)); grid-template-rows: repeat(8, var(--cell)); border: 3px solid #333; background: var(--chess-light); }
-        .cell { width: var(--cell); height: var(--cell); display: flex; align-items: center; justify-content: center; font-size: 2vmin; color: #111; border: 1px solid rgba(0,0,0,0.1); cursor: pointer; }
+        .board-container { display: grid; grid-template-columns: repeat(8, var(--cell)); grid-template-rows: repeat(8, var(--cell)); border: 5px solid #222; background: var(--chess-light); box-shadow: 0 20px 50px rgba(0,0,0,0.9); }
+        .cell { width: var(--cell); height: var(--cell); display: flex; align-items: center; justify-content: center; font-size: 2vmin; color: #111; border: 1px solid rgba(0,0,0,0.05); cursor: pointer; transition: 0.2s; position: relative; }
         .cell.dark { background: var(--chess-dark); color: white; }
-        .cell.macro-active { background: #5d4037 !important; color: var(--gold); font-size: 6vmin; }
-        .cell.micro-active { background: #0d47a1 !important; color: var(--blue); font-size: 6vmin; }
+        .cell:hover { filter: brightness(1.2); z-index: 5; }
+        .cell.macro-active { background: #5d4037 !important; color: var(--gold); font-size: 6vmin; animation: cellPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .cell.micro-active { background: #0d47a1 !important; color: var(--blue); font-size: 6vmin; animation: cellPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes cellPop { 0% { transform: scale(0.5); } 100% { transform: scale(1); } }
+
+        /* Milestone Popups */
+        #milestone-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); background: rgba(0,0,0,0.9); border: 4px solid var(--gold); border-radius: 50%; width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; font-size: 90px; z-index: 1000; transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); pointer-events: none; opacity: 0; box-shadow: 0 0 50px var(--gold); }
+        #milestone-popup.show { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+
+        #display-box { width: 100%; max-width: calc(var(--cell) * 8); background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; margin-bottom: 25px; text-align: center; border: 2px solid #444; backdrop-filter: blur(10px); }
+        #counter-num { font-family: 'Courier New', monospace; font-size: 1.5rem; color: var(--gold); font-weight: bold; text-shadow: 0 0 10px rgba(249,202,36,0.5); }
         
-        #display-box { width: 100%; max-width: calc(var(--cell) * 8); background: rgba(255,255,255,0.07); padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center; border: 2px solid #444; }
-        #counter-num { font-family: 'Courier New', monospace; font-size: 1.3rem; }
-        
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 600px) { :root { --cell: 11.5vw; } }
     </style>
 </head>
 <body>
@@ -94,62 +90,75 @@
 <div id="bg-fx" aria-hidden="true"></div>
 <div id="milestone-popup" aria-live="polite" role="status"></div>
 
-<div id="lang-selector" role="navigation" aria-label="Language and settings">
-    <a href="lang/documentation-en.html" id="doc-link" class="lang-btn doc-btn" target="_blank" aria-label="View documentation">DOC</a>
-    <select id="voice-select" class="lang-btn" aria-label="Select narration voice"></select>
-    <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')" aria-label="Switch to English">EN</button>
-    <button id="btn-it" class="lang-btn" onclick="setLanguage('it')" aria-label="Passa all'Italiano">IT</button>
+<div class="license-toast" id="license-msg" aria-label="Licensing Information">
+    MIT License | OER Resource<br>© 2026 pivari.com
+</div>
+
+<div id="lang-selector" role="navigation" aria-label="Settings">
+    <a href="lang/documentation-en.html" id="doc-link" class="lang-btn doc-btn" target="_blank">DOC</a>
+    <select id="voice-select" class="lang-btn" aria-label="Select voice"></select>
+    <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')">EN</button>
+    <button id="btn-it" class="lang-btn" onclick="setLanguage('it')">IT</button>
+    <button id="btn-zh" class="lang-btn" onclick="setLanguage('zh')">ZH</button>
 </div>
 
 <div id="overlay" role="dialog" aria-modal="true">
-    <div id="s1" class="slide visible" aria-labelledby="t1">
-        <span style="font-size: 60px;" aria-hidden="true">👳🏽‍♂️</span>
+    <div id="s1" class="slide visible">
+        <span style="font-size: 80px;">👳🏽‍♂️</span>
         <p id="t1" class="story-text"></p>
+        <div class="formula-display">\[ G_n = 2^{n-1} \]</div>
         <button id="b1" class="btn-action" onclick="speakNext('t1', 's1', 's2')"></button>
     </div>
-    <div id="s2" class="slide" aria-labelledby="t2">
-        <span style="font-size: 60px;" aria-hidden="true">🌾</span>
+
+    <div id="s2" class="slide">
+        <span style="font-size: 80px;">🌾</span>
         <p id="t2" class="story-text"></p>
+        <div class="formula-display">\[ S = \sum_{i=0}^{63} 2^i = 2^{64} - 1 \]</div>
         <button id="b2" class="btn-action" onclick="speakStart('t2', 'macro')"></button>
     </div>
-    <div id="s3" class="slide" aria-labelledby="t3">
-        <div class="anim-container" aria-hidden="true">
+
+    <div id="s3" class="slide">
+        <div class="anim-container">
             <div class="earth-v2"></div>
             <div id="rocket-obj" class="rocket-v2">🚀</div>
         </div>
         <p id="t3" class="story-text"></p>
         <button id="b3" class="btn-action" onclick="speakNext('t3', 's3', 's4')"></button>
     </div>
-    <div id="s4" class="slide" aria-labelledby="t4">
-        <span style="font-size: 60px;" aria-hidden="true">🏚️</span>
+
+    <div id="s4" class="slide">
+        <span style="font-size: 80px;">⚛️</span>
         <p id="t4" class="story-text"></p>
+        <div class="formula-display">\[ L_n = 0.005 \times 2^{-n} \]</div>
         <button id="b4" class="btn-action" onclick="speakStart('t4', 'micro')"></button>
     </div>
-    <div id="s5" class="slide" aria-labelledby="t5">
-        <div class="anim-container" aria-hidden="true">
-            <div class="atom-core"></div>
+
+    <div id="s5" class="slide">
+        <div class="anim-container">
             <div class="tunnel-ring r1"></div><div class="tunnel-ring r2"></div><div class="tunnel-ring r3"></div>
+            <div style="width: 25px; height: 25px; background: #fff; border-radius: 50%; box-shadow: 0 0 30px var(--blue);"></div>
         </div>
         <p id="t5" class="story-text"></p>
-        <div style="display:flex; gap:10px;">
+        <div style="display:flex; gap:15px; flex-wrap: wrap; justify-content: center;">
             <button id="bShare" class="btn-action" onclick="shareResults()" style="background:var(--blue); color:#000;"></button>
             <button id="b5" class="btn-action" onclick="location.reload()"></button>
         </div>
     </div>
 </div>
 
-<main id="game-area" aria-label="Game board and counter">
+<main id="game-area">
     <div id="display-box" aria-live="polite">
         <span id="counter-num"></span>
     </div>
-    <h2 id="title" style="margin: 0 0 10px 0;"></h2>
-    <div class="board-container" id="board" role="grid" aria-label="Chessboard squares"></div>
+    <h2 id="title" style="margin: 0 0 15px 0; color: var(--gold); letter-spacing: 3px; text-shadow: 2px 2px 4px #000;"></h2>
+    <div class="board-container" id="board" role="grid" aria-label="Exponential Chessboard"></div>
 </main>
 
 <script>
-    /* LOGICA v1.4 ORIGINALE - NESSUNA MODIFICA */
+    /* COMPREHENSIVE LOGIC ENGINE v1.5 */
     let currentLang = localStorage.getItem('sissa_lang') || 'en', 
         current = 0, mode = 'macro', grains = BigInt(1), voices = [], translations = null;
+    
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const rocket = document.getElementById('rocket-obj');
 
@@ -162,12 +171,17 @@
 
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             if(document.getElementById(`btn-${lang}`)) document.getElementById(`btn-${lang}`).classList.add('active');
-
             document.getElementById('doc-link').href = `lang/documentation-${lang}.html`;
+            
+            const licMsg = document.getElementById('license-msg');
+            licMsg.innerHTML = lang === 'it' ? 'Licenza MIT | Risorsa OER<br>© 2026 pivari.com' : 
+                               lang === 'zh' ? 'MIT 许可证 | OER 资源<br>© 2026 pivari.com' : 
+                               'MIT License | OER Resource<br>© 2026 pivari.com';
 
             updateUI(); 
             populateVoiceList();
-        } catch (e) { console.error("Error loading language:", e); }
+            if(window.MathJax) MathJax.typesetPromise();
+        } catch (e) { console.error("Localization engine failed:", e); }
     }
 
     function updateUI() {
@@ -187,24 +201,15 @@
         const gain = audioCtx.createGain();
         osc.connect(gain); gain.connect(audioCtx.destination);
         if(m === 'macro') {
-            osc.type = 'sine'; osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.1);
+            osc.type = 'sine'; osc.frequency.setValueAtTime(160, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.12);
         } else {
-            osc.type = 'triangle'; osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.05);
+            osc.type = 'triangle'; osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1400, audioCtx.currentTime + 0.08);
         }
-        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-        osc.start(); osc.stop(audioCtx.currentTime + 0.1);
-    }
-
-    function showMilestoneIcon(idx) {
-        const iconSet = translations.icons[mode];
-        if(iconSet && iconSet[idx]) {
-            const popup = document.getElementById('milestone-popup');
-            popup.innerText = iconSet[idx]; popup.classList.add('show');
-            setTimeout(() => popup.classList.remove('show'), 1200);
-        }
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+        osc.start(); osc.stop(audioCtx.currentTime + 0.12);
     }
 
     function populateVoiceList() {
@@ -251,8 +256,7 @@
         for(let i=0; i<64; i++) {
             const c = document.createElement('div');
             c.className = `cell ${(Math.floor(i/8)+i)%2===0 ? '' : 'dark'}`;
-            c.id = `c-${i}`; 
-            c.innerText = i+1; 
+            c.id = `c-${i}`; c.innerText = i+1; 
             c.setAttribute('role', 'gridcell');
             c.setAttribute('aria-label', `Square ${i+1}`);
             b.appendChild(c);
@@ -263,11 +267,12 @@
     function updateCounter() {
         if(!translations) return;
         const d = translations;
+        const countDisplay = document.getElementById('counter-num');
         if(mode === 'macro') {
-            document.getElementById('counter-num').innerText = grains.toLocaleString(currentLang==='it'?'it-IT':'en-US') + " " + d.units.grains;
+            countDisplay.innerText = grains.toLocaleString(currentLang==='it'?'it-IT':'en-US') + " " + d.units.grains;
         } else {
             const val = Math.pow(2, -current) * 0.005;
-            document.getElementById('counter-num').innerText = val.toFixed(20) + " " + d.units.meters;
+            countDisplay.innerText = val.toFixed(20) + " " + d.units.meters;
         }
     }
 
@@ -280,24 +285,26 @@
             cell.setAttribute('aria-pressed', 'true');
             if(mode === 'macro' && current > 0) grains *= BigInt(2);
             updateCounter();
+            
             if(translations.milestones[mode][current]) {
                 speak(translations.milestones[mode][current]);
-                showMilestoneIcon(current);
+                const popup = document.getElementById('milestone-popup');
+                popup.innerText = translations.icons[mode][current] || "✨";
+                popup.classList.add('show');
+                setTimeout(() => popup.classList.remove('show'), 1200);
             }
             current++;
-            if(current === 64) setTimeout(end, 1500); 
+            if(current === 64) setTimeout(endProcess, 1500); 
         }
     });
 
-    function end() {
+    function endProcess() {
         document.getElementById('game-area').style.display = 'none';
         document.getElementById('overlay').style.display = 'flex';
         const nxt = mode === 'macro' ? 's3' : 's5';
         document.querySelectorAll('.slide').forEach(s => s.classList.remove('visible'));
         document.getElementById(nxt).classList.add('visible');
         if(nxt === 's3') {
-            rocket.classList.remove('rocket-animate');
-            void rocket.offsetWidth;
             rocket.classList.add('rocket-animate');
         } else {
             speak(document.getElementById('t5').innerText);
@@ -305,20 +312,15 @@
     }
 
     function shareResults() {
-        const d = translations;
-        const text = mode === 'macro' ? d.share.macroText : d.share.microText;
+        const text = mode === 'macro' ? translations.share.macroText : translations.share.microText;
         if (navigator.share) navigator.share({ title: 'Sissa Math Challenge', text: text, url: window.location.href });
-        else alert("Results copied to clipboard!");
+        else alert(text);
     }
     
+    // Lifecycle Init
     setLanguage(currentLang);
     if (speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = populateVoiceList;
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 </script>
-
-<footer style="position: fixed; bottom: 5px; width: 100%; text-align: center; font-size: 0.7rem; color: #555; z-index: 50; pointer-events: none;">
-    Released under MIT License | © 2026 pivari.com
-</footer>
-    
 </body>
 </html>

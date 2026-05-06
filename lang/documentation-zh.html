@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技术文档与教育指南 | 塞萨的传说 v1.5</title>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root { --gold: #f9ca24; --blue: #00d2ff; --bg: #0a0e14; --text: #c9d1d9; }
+        body { 
+            background: var(--bg); color: var(--text); 
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; 
+            line-height: 1.8; padding: 40px 20px; max-width: 900px; margin: auto; 
+        }
+        h1, h2, h3 { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 40px; }
+        .formula-box { 
+            background: #1a202c; padding: 25px; border-radius: 12px; 
+            border-left: 5px solid var(--gold); margin: 20px 0; overflow-x: auto;
+        }
+        .highlight { color: var(--blue); font-weight: bold; }
+        ul { padding-left: 20px; }
+        
+        /* License Box Styling at the bottom */
+        .license-section {
+            margin-top: 60px;
+            padding: 20px;
+            border: 1px solid #444;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+        }
+        .mit-legal {
+            font-family: monospace; 
+            font-size: 0.85em; 
+            color: #888; 
+            white-space: pre-wrap;
+            background: #000;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        footer { margin-top: 40px; padding-top: 20px; text-align: center; font-size: 0.9em; color: #666; }
+        a { color: var(--gold); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>塞萨的传说与10的幂：科学导引</h1>
+    
+    <p>本资源是一个开放教育资源 (OER)，旨在通过数学和物理的角度探索指数增长的概念。</p>
+
+    <h2>1. 数学原理：几何级数</h2>
+    <p>塞萨的棋盘展示了指数级增长的威力。每一格的谷物数量 \( G \) 遵循以下公式：</p>
+    <div class="formula-box">
+        \[ G_n = 2^{n-1} \]
+        <p>棋盘全部64格的总和 \( S \) 为：</p>
+        \[ S = 2^{64} - 1 \]
+    </div>
+
+    <h2>2. 微观探索：10的幂</h2>
+    <p>通过重复对半分割，我们进入亚原子领域：</p>
+    <div class="formula-box">
+        \[ L_n = 0.005 \times 2^{-n} \]
+    </div>
+
+    <h2>3. 核心术语表</h2>
+    <ul>
+        <li><span class="highlight">亚原子尺度：</span> 指比原子更小的结构（如电子、夸克）。</li>
+        <li><span class="highlight">普朗克长度：</span> 物理学中理论上的最小长度单位。</li>
+        <li><span class="highlight">ARIA 标准：</span> 确保视障用户能够使用屏幕阅读器访问资源。</li>
+    </ul>
+
+    <h2>4. 系统要求</h2>
+    <p>本 PWA 应用针对现代浏览器和 <strong>HarmonyOS Next (ArkWeb)</strong> 进行了优化，支持完全离线使用。</p>
+
+    <div class="license-section">
+        <h3>📜 许可证信息 (MIT License)</h3>
+        <p>本项目作为<strong>开放教育资源 (OER)</strong>发布。</p>
+        <div class="mit-legal">
+MIT License
+
+Copyright (c) 2026 pivari.com
+
+特此授权，免费向任何获得本软件副本及相关文档文件（“软件”）的人授予许可，不受限制地处理本软件，包括但不限于使用、复制、修改、合并、发布、分发、再许可和/或出售软件副本的权利。
+
+本软件按“原样”提供，不提供任何形式的明示或暗示担保，包括但不限于对适销性、特定用途的适用性和非侵权性的担保。
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 <strong>Pivari.com</strong> | <a href="https://www.pivari.com">官方网站</a></p>
+    </footer>
+</body>
+</html>
